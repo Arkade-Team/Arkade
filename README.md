@@ -1,5 +1,18 @@
 # Arkade Project
 
+## Badges
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+
+[![Travis Build Status](https://travis-ci.org/Arkade-Team/Arkade.svg?branch=master)](https://travis-ci.org/Arkade-Team/Arkade)
+
+![Heroku](https://protected-mesa-87501.herokuapp.com)
+
+Pivotal Tracker: ?
+
+
 ## First steps
 
 > note 1: this project is configured to run within a Docker container. Make sure to install Docker and Docker-Compose on your machine.
@@ -22,4 +35,3 @@ This project adopts `RSpec` and `Cucumber` for its test suits. To dispatch a tes
 
 - RSpec: `docker-compose run --rm web rails spec`
 - Cucumber: `docker-compose run --rm web rails cucumber`
-
