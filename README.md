@@ -1,24 +1,25 @@
-# README
+# Arkade Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## First steps
 
-Things you may want to cover:
+> note 1: this project is configured to run within a Docker container. Make sure to install Docker and Docker-Compose on your machine.
 
-* Ruby version
+> note 2: the steps here assume your user is within 'docker' group -- if that's not true, please add youself to that group (advised) or run all docker commands with `sudo` (not advised)
 
-* System dependencies
+To run the development setup, follow these steps:
 
-* Configuration
+1. create your own local `.env`: `cp .env.sample .env`
+2. edit `.env` to insert your values
+3. build the image: `docker-compose build`
+4. setup the database: `docker-compose run --rm web rails db:setup`
+5. run the development server `docker-compose up`
 
-* Database creation
+In order to properly clean the development environment after stopping the server, ensure your containers are down: `docker-compose down`
 
-* Database initialization
+## Testing
 
-* How to run the test suite
+This project adopts `RSpec` and `Cucumber` for its test suits. To dispatch a test suit, please do:
 
-* Services (job queues, cache servers, search engines, etc.)
+- RSpec: `docker-compose run --rm web rails spec`
+- Cucumber: `docker-compose run --rm web rails cucumber`
 
-* Deployment instructions
-
-* ...
