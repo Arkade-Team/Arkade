@@ -12,6 +12,18 @@
 
 Pivotal Tracker: ?
 
+## Equipe
+
+- Alécio Godoi - github.com/aleciogodoi
+- Daniel Quiteque
+- Fábio Nogueira - github.com/fabiotk
+- Gustavo Molina
+- João Daniel - github.com/jooaodanieel
+- Pedro França
+
+## Descrição
+
+O **MED CheckApp Dashboard** (nome provisório) é uma plataforma de agregação e visualização de dados médicos. Seu público-alvo são os gestores de saúde, como chefes de hospitais, diretores de clínicas médicas ou gestores de saúde pública. Com este dashboard, o gestor poderá visualizar agregações de dados coletados durante consultas de _check-up_. Tais dados são armazenados pelo fluxo de uso do **MED CheckApp**, um app em atual desenvolvimento numa parceria entre o depto. de Clínica Médica HC-USP e o CodeLab Butantã.
 
 ## First steps
 
