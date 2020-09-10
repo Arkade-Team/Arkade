@@ -33,3 +33,6 @@ development:
 test:
   <<: *default
   database: <%= ENV['DATABASE_DB'] + '_test' %>
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
