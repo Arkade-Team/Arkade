@@ -8,7 +8,7 @@
 
 [![Travis Build Status](https://travis-ci.org/Arkade-Team/Arkade.svg?branch=master)](https://travis-ci.org/Arkade-Team/Arkade)
 
-![Heroku](https://protected-mesa-87501.herokuapp.com)
+[Heroku](https://protected-mesa-87501.herokuapp.com)
 
 Pivotal Tracker: ?
 
