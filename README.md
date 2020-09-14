@@ -6,7 +6,7 @@
 
 <!--[![Test Coverage](https://api.codeclimate.com/v1/badges/4e347874f6423c0eb360/test_coverage)](https://codeclimate.com/github/Arkade-Team/Arkade/test_coverage)-->
 
-[![Coverage Status](https://coveralls.io/repos/github/Arkade-Team/Arkade/badge.svg)](https://coveralls.io/github/Arkade-Team/Arkade)
+[![Coverage Status](https://coveralls.io/repos/github/Arkade-Team/Arkade/badge.svg?branch=master)](https://coveralls.io/github/Arkade-Team/Arkade?branch=master)
 
 [![Travis Build Status](https://travis-ci.org/Arkade-Team/Arkade.svg?branch=master)](https://travis-ci.org/Arkade-Team/Arkade)
 
