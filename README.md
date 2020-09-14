@@ -21,7 +21,7 @@ Pivotal Tracker: ?
 - Fábio Nogueira - github.com/fabiotk
 - Gustavo Molina
 - João Daniel - github.com/jooaodanieel
-- Pedro França
+- Pedro França - github.com/pedr0hug0
 
 ## Descrição
 
