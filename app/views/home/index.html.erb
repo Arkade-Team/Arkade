@@ -81,12 +81,9 @@
           <div class="col-md-4">
             <h2>Equipe</h2>
 				<ul>
-					<li>Alécio Godoi</li>
-					<li>Daniel Quiteque</li>
-					<li>Fábio Nogueira</li>
-					<li>Gustavo Molina</li>
-					<li>João Daniel</li>
-					<li>Pedro França</li>
+          <% @team.each do |member| %>
+            <li><%= member %></li>
+          <% end %>
 				</ul>	
             <p><a class="btn btn-secondary" href="#" role="button">Detalhes &raquo;</a></p>
           </div>		  
