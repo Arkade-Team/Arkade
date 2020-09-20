@@ -12,7 +12,7 @@
 
 [Heroku](https://protected-mesa-87501.herokuapp.com)
 
-Pivotal Tracker: ?
+[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2466642)
 
 ## Equipe
 
