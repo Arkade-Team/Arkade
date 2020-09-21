@@ -19,7 +19,7 @@
 - Alécio Godoi - github.com/aleciogodoi
 - Daniel Quiteque
 - Fábio Nogueira - github.com/fabiotk
-- Gustavo Molina
+- Gustavo Molina - github.com/gustavomolina17
 - João Daniel - github.com/jooaodanieel
 - Pedro França - github.com/pedr0hug0
 
