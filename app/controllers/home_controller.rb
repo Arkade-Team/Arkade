@@ -10,8 +10,7 @@ class HomeController < ApplicationController
       "Fábio Nogueira",
       "Gustavo Molina",
       "João Daniel",
-      "Pedro França",
-      "Fulano de Tal"
+      "Pedro França"  
     ]
   end
 end
