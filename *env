@@ -1,4 +1,0 @@
-DATABASE_PASSWORD=mysecretpassword
-DATABASE_USER=railsweb
-DATABASE_DB=arkade
-DATABASE_HOST=pg
