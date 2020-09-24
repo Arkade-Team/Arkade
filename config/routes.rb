@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  # GET "/"
+  post '/appointments', to: "appointment#create"
   root "home#index"
 end
