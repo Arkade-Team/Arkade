@@ -36,6 +36,7 @@ group :development, :test do
   gem 'jasmine'
   gem 'coveralls', require: false
   gem 'cucumber-rails', require: false
+  gem 'json_spec'
   # database_cleaner is not mandatory, but highly recommended
   gem 'database_cleaner'
 end
