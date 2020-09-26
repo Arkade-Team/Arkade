@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'json_spec/cucumber'
 
 # frozen_string_literal: true
 
@@ -58,3 +59,7 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+
+def last_json
+  last_response.body
+end
