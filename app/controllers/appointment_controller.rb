@@ -1,6 +1,10 @@
 class AppointmentController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
+  def index 
+    @appointments = Appointment.all
+  end
+
   def create
     @appointment = Appointment.new appointment_params
 
