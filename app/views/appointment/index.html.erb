@@ -1,0 +1,22 @@
+<h1>Agendamentos</h1>
+ 
+<table>
+  <thead>
+    <tr>
+      <th>Idade </th>
+      <th>Sexo </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    <% @appointments.each do |item| %>
+      <tr>
+        <td><%= item.age %></td>
+        <td><%= item.sex %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+ 
+<br>
