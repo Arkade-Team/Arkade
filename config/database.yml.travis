@@ -14,18 +14,21 @@
 # Configure Using Gemfile
 # gem 'pg'
 
-default: &default
+base: &base
   adapter: postgresql
   encoding: unicode
   pool: 5
   timeout: 5000
+  username: <%= ENV['DATABASE_USER'] %>
+  database: <%= ENV['DATABASE_DB'] %>
+
+default: &default
+  <<: *base
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST']%>
 
 development:
   <<: *default
-  database: <%= ENV['DATABASE_DB'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
  
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -34,3 +37,6 @@ test:
   <<: *default
   database: travis_ci_test
   username: postgres
+
+production:
+  <<: *default
