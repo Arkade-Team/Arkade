@@ -1,41 +1,39 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">MED CheckApp Dashboard</h1>
+    <p>O MED CheckApp Dashboard (nome provisório) é uma plataforma de agregação e visualização de dados médicos. Seu
+      público-alvo são os gestores de saúde, como chefes de hospitais, diretores de clínicas médicas ou gestores de
+      saúde pública. Com este dashboard, o gestor poderá visualizar agregações de dados coletados durante consultas de
+      check-up. Tais dados são armazenados pelo fluxo de uso do MED CheckApp, um app em atual desenvolvimento numa
+      parceria entre o depto. de Clínica Médica HC-USP e o CodeLab Butantã.</p>
+    <p><a class="btn btn-primary btn-lg" href="https://github.com/Arkade-Team/Arkade/" role="button" target="_blank">Saiba mais &raquo;</a></p>
+  </div>
+</div>
 
-    
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Detalhes do Projeto</h2>
+      <p>Projeto no Pivotaltracker</p>
+      <p><a class="btn btn-secondary" href="https://www.pivotaltracker.com/n/projects/2466642" role="button" target="_blank">Link Pivotaltracker &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Item</h2>
+      <p>Descrição do item</p>
+      <p><a class="btn btn-secondary" href="#" role="button">Detalhes &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Equipe</h2>
+      <ul>
+        <% @team.each do |member| %>
+        <li><%= member %></li>
+        <% end %>
+      </ul>
+      <p><a class="btn btn-secondary" href="#" role="button">Detalhes &raquo;</a></p>
+    </div>
+  </div>
 
-    
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">MED CheckApp Dashboard</h1>
-          <p>O MED CheckApp Dashboard (nome provisório) é uma plataforma de agregação e visualização de dados médicos. Seu público-alvo são os gestores de saúde, como chefes de hospitais, diretores de clínicas médicas ou gestores de saúde pública. Com este dashboard, o gestor poderá visualizar agregações de dados coletados durante consultas de check-up. Tais dados são armazenados pelo fluxo de uso do MED CheckApp, um app em atual desenvolvimento numa parceria entre o depto. de Clínica Médica HC-USP e o CodeLab Butantã.</p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Saiba mais &raquo;</a></p>
-        </div>
-      </div>
+  <hr>
 
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Detalhes do Projeto</h2>
-            <p>Detalhes do Projeto</p>
-            <p><a class="btn btn-secondary" href="#" role="button">Detalhes &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Item</h2>
-            <p>Descrição do item</p>
-            <p><a class="btn btn-secondary" href="#" role="button">Detalhes &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Equipe</h2>
-				<ul>
-          <% @team.each do |member| %>
-            <li><%= member %></li>
-          <% end %>
-				</ul>	
-            <p><a class="btn btn-secondary" href="#" role="button">Detalhes &raquo;</a></p>
-          </div>		  
-        </div>
-
-        <hr>
-
-      </div> <!-- /container -->
-
-   
+</div> <!-- /container -->
