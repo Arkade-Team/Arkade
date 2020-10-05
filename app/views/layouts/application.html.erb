@@ -1,15 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Arkade</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>Arkade</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/">MED CheckApp Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/appointments">Consultas</a>
+        </li>
+        <!--
+          <li class="nav-item">
+            <a class="nav-link" href="#">Leituras</a>
+          </li>
+          -->
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/Arkade-Team/Arkade/wiki" target="_blank">Wiki</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Dashboards</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="/appointments">Consultas</a>
+            <!-- 
+                <a class="dropdown-item" href="#">Doenças investigadas</a>
+              <a class="dropdown-item" href="#">Ações</a> 
+              -->
+          </div>
+        </li>
+      </ul>
+
+      <!-- 
+          <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Busca" aria-label="Busca">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Busca</button>
+        </form>
+        -->
+    </div>
+  </nav>
+
+  <main role="main">
+
+    <!-- Main -->
+
+
     <%= yield %>
-  </body>
+
+
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p>&copy; Arkade 2020</p>
+  </footer>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <script src="js/vendor/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+
 </html>
