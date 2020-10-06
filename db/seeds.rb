@@ -5,4 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Appointment.create([{sex: "female", age: 23},{sex: "male", age: 34}])
+osteo = Disease.create([{ name: "Osteoporose" }])
+
+20.times do
+  appointment = Appointment.create({
+    age: Random.new.rand(0..100),
+    sex: ["male", "female"].sample
+  })
+
+  appointment.diseases << osteo
+end
