@@ -1,17 +1,26 @@
-<h1>Doenças Investigadas</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Qt. Consultas</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @diseases.each do |disease| %>
-      <tr>
-        <td><%= disease.name %></td>
-        <td><%= disease.appointments.size %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-4">Agendamentos</h1>
+    
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nome </th>
+          <th scope="col">Qt. Consultas</th>
+        </tr>
+      </thead>
+     
+      <tbody>
+        <% @diseases.each do |item| %>
+          <tr scope="row">
+            <td><%= item.name %></td>
+            <td><%= item.appointments.size %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+     
+    <br>
+  </div>
+</div>
