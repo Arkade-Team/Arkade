@@ -1,7 +1,11 @@
-Quando "o cliente acessa a página de consultas" do
-    visit '/appointments'
+Quando "o cliente acessa a homepage" do
+    visit '/'
+  end
+  
+Quando "o cliente clica em {string}" do |button|
+click_link button
 end
 
-Então "ele vê um gráfico contendo o titulo {string}" do |title|
-    page.should have_content title
+Então "ele vê um gráfico carregando informações" do
+    page.should have_content "Loading.."
 end
