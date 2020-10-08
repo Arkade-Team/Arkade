@@ -5,6 +5,10 @@ class AppointmentController < ApplicationController
     @appointments = Appointment.all
   end
 
+  def agePerAppointments
+    render 'appointment/graphics/age'
+  end
+
   def create
     @appointment = Appointment.new appointment_params
 
