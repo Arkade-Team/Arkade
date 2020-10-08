@@ -1,9 +1,5 @@
-Quando "o cliente acessa a homepage" do
-    visit '/'
-  end
-  
-Quando "o cliente clica em {string}" do |button|
-click_link button
+Quando "o cliente acessa a página de consultas" do
+  visit '/appointments'
 end
 
 Então "ele vê um gráfico carregando informações" do

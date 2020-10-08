@@ -6,6 +6,5 @@ Funcionalidade: Gráfico de distribuição etária
     QUERO um gráfico acessível a partir da homepage que mostre a distribuição da quantidade de consultas para cada faixa etária definida
 
 Cenário: Visualizar distribuição de idade em formato de gráfico
-    Quando o cliente acessa a homepage
-    E o cliente clica em "Consultas"
+    Quando o cliente acessa a página de consultas
     Então ele vê um gráfico carregando informações
