@@ -1,3 +1,9 @@
-<div>
-    <%= column_chart Appointment.group(:age).count, title: "Distribuição das idades" %>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <%= column_chart Appointment.group(:age).count, title: "Distribuição das idades" %>
+      </div>
+    </div>
+  </div>
 </div>
