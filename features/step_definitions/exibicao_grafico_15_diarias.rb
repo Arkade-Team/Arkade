@@ -1,4 +1,4 @@
-Quando "o cliente acessa a página de consultas para acessar o gráfico de quinze diárias" do
+Quando "o cliente acessa a página de consultas para acessar o gráfico de quinze diárias por gênero" do
   visit '/appointments'
 end
 
