@@ -3,6 +3,9 @@ class AppointmentController < ApplicationController
 
   def index 
     @appointments = Appointment.all
+    @daysAgo = 15
+    @fifteenDaysAgo = Time.now - (@daysAgo * 24 * 60 * 60)
+    @lastFifteenDays = Appointment.where("created_at >= ?", @fifteenDaysAgo ).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
   end
 
   def create
