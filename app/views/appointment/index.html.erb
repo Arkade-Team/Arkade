@@ -5,5 +5,11 @@
         <%= column_chart Appointment.group(:age).count, title: "Distribuição das idades" %>
       </div>
     </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero"%>
+      </div>
+    </div>
   </div>
 </div>
