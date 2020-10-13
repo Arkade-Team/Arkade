@@ -1,17 +1,4 @@
-<h1>Doenças Investigadas</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Qt. Consultas</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @diseases.each do |disease| %>
-      <tr>
-        <td><%= disease.name %></td>
-        <td><%= disease.appointments.size %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="jumbotron">
+  <div id="related_diseases" class="container">
+  </div>
+</div>

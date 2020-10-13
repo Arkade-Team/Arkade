@@ -4,4 +4,7 @@ class Disease < ApplicationRecord
   validates :name,
     uniqueness: true,
     length: { minimum: 2 }
+
+  def self.related_pairs
+  end
 end

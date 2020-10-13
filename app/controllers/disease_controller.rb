@@ -5,6 +5,7 @@ class DiseaseController < ApplicationController
 
   def index
     @diseases = Disease.all
+    @related_diseases = Disease.related_pairs
   end
 
   def create
