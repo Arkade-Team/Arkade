@@ -11,8 +11,118 @@
         <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero"%>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col">
+
+        <h3>Consultas por período</h3>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Data</th>
+              <th scope="col">Período</th>
+              <th scope="col">Qt. Consultas</th>
+              <th scope="col">Age</th>
+              <th scope="col">Sex</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% 
+         #Adicionar 1h@consulta = Time.current + (1*3600);
+         #@consulta = Time.current + (7*3600);
+         #iniciando variaves
+         @periodo = "indefinido"
+         @madrugada = 0;
+         @manha = 0;
+         @tarde = 0;
+         @noite = 0;
+         @total_itens = 0
+         
+            
+         @lastFifteenDaysPeriodo.each do |item|         
+         @total_itens += 1
+         #adicionando 1h para cada consulta efetuada (randomizar horarios consultas).
+         @consulta = item.created_at + (@total_itens * 3600);
+         
+         #Regra divisão período
+         if @consulta.hour >=0 && @consulta.hour < 6
+         @periodo = "Madrugada"
+         @madrugada +=1 
+         elsif  @consulta.hour >=6 && @consulta.hour < 12
+         @periodo = "Manhã" 
+         @manha +=1 
+         elsif  @consulta.hour >=12 && @consulta.hour < 18
+         @periodo = "Tarde" 
+         @tarde +=1
+         elsif  @consulta.hour >=18 && @consulta.hour <= 23
+         @periodo = "Noite" 
+         @noite +=1
+         else 
+         @periodo = "Indefinido"
+         end
+         %>
+            <tr scope="row">
+              <td> <%= @consulta %> </td>
+              <td> <%= @periodo %> </td>
+              <td>
+                <%= case @periodo
+                    when "Madrugada"
+                      @madrugada
+                    when "Manhã"
+                      @manha
+                    when "Tarde"
+                      @tarde
+                    when "Noite"
+                      @noite
+                    else
+                      "Indefinido"
+                    end
+                %>
+              </td>
+              <td><%= item.age %></td>
+              <td><%= item.sex %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <h3>Total Consultas por Período</h3>
+        <table class="table table-bordered table-hover">
+          <tr scope="row">
+            <th scope="col"> Periodo</th>
+            <th scope="col">Qtd Consultas</th>
+          </tr>
+          <tr scope="row">
+            <td>Madrugada</td>
+            <td><%= @madrugada %></td>
+          </tr>
+          <tr scope="row">
+            <td>Manhã</td>
+            <td><%= @manha %></td>
+          </tr>
+          <tr scope="row">
+            <td>Tarde</td>
+            <td><%= @tarde %></td>
+          </tr>
+          <tr scope="row">
+            <td>Noite</td>
+            <td><%= @noite %></td>
+          </tr>
+          <tr scope="row">
+            <th colspan="2" class="center">Total Consultas: <%= @total_itens %></th>
+            
+          </tr>
+        </table>
+
+
+
+      </div>
+    </div>
+
+
     <div class="d-flex justify-content-center mt-4">
-        <a href='#' onclick="window.print();" class='btn btn-dark'>Gerar PDF</a>
+      <a href='#' onclick="window.print();" class='btn btn-dark'>Gerar PDF</a>
     </div>
   </div>
 </div>
