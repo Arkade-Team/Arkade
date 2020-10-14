@@ -22,8 +22,7 @@
               <th scope="col">Data</th>
               <th scope="col">Período</th>
               <th scope="col">Qt. Consultas</th>
-              <th scope="col">Age</th>
-              <th scope="col">Sex</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -38,13 +37,21 @@
          @tarde = 0;
          @noite = 0;
          @total_itens = 0
+         @consulta_antiga = Time.current + 3600;
          
             
          @lastFifteenDaysPeriodo.each do |item|         
          @total_itens += 1
-         #adicionando 1h para cada consulta efetuada (randomizar horarios consultas).
-         @consulta = item.created_at + (@total_itens * 3600);
+         #adicionando 1h para cada consulta efetuada (randomizar horarios consultas)
          
+         @consulta = item.created_at + (@total_itens * 3600);  
+         
+         
+         
+         @consulta_antiga = @consulta.to_date #apenas data
+         
+         
+
          #Regra divisão período
          if @consulta.hour >=0 && @consulta.hour < 6
          @periodo = "Madrugada"
@@ -61,7 +68,10 @@
          else 
          @periodo = "Indefinido"
          end
+         
+         
          %>
+         
             <tr scope="row">
               <td> <%= @consulta %> </td>
               <td> <%= @periodo %> </td>
@@ -80,9 +90,7 @@
                     end
                 %>
               </td>
-              <td><%= item.age %></td>
-              <td><%= item.sex %></td>
-            </tr>
+              </tr>
             <% end %>
           </tbody>
         </table>
