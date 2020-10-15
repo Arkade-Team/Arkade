@@ -1,4 +1,18 @@
 <div class="jumbotron">
   <div id="related_diseases" class="container">
+    <% @related_diseases.each_key do |first| %>
+      <div class="row" id="<%= first %>">
+        <div class="col mt-4">
+          <strong><%= first %></strong>
+        </div>
+      </div>
+      <div class="row" id="<%= first %>_related">
+        <% @related_diseases[first].each_key do |second| %>
+          <div class="col">
+            <%= second %>: <%= @related_diseases[first][second] %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

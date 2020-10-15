@@ -12,6 +12,12 @@ Dado "nesta consulta foi investigado Osteoporose e Depressão" do
    @appointment.diseases << depre
 end
 
-Então "ele deve visualizar uma tabela com id {string}" do |id_selector|
-  page.should have_selector("##{id_selector}")
+Então "ele deve visualizar a tabela de doenças relacionadas" do
+  page.should have_selector("#related_diseases")
+
+  page.should have_selector("#Osteoporose")
+  page.should have_selector("#Osteoporose_related")
+
+  page.should have_selector("#Depressão")
+  page.should have_selector("#Depressão_related")
 end

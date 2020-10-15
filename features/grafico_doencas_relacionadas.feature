@@ -10,4 +10,4 @@ Funcionalidade: Gráfico de Doenças Relacionadas
     E nesta consulta foi investigado Osteoporose e Depressão
     Quando o cliente acessa a homepage
     E o cliente clica em "Doenças"
-    Então ele deve visualizar uma tabela com id "related_diseases"
+    Então ele deve visualizar a tabela de doenças relacionadas
