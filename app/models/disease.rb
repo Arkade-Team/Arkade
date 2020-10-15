@@ -6,5 +6,6 @@ class Disease < ApplicationRecord
     length: { minimum: 2 }
 
   def self.related_pairs
+    {"Osteoporose" => { "Depressão" => 1 }}
   end
 end
