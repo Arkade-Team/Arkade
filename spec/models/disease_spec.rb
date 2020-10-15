@@ -43,6 +43,10 @@ RSpec.describe Disease, type: :model do
       expect(hash).to have_key("Depressão")
       expect(hash["Depressão"]).to have_key("Osteoporose")
       expect(hash["Depressão"]["Osteoporose"]).to equal(1)
+
+      expect(hash).to have_key("Osteoporose")
+      expect(hash["Osteoporose"]).to have_key("Depressão")
+      expect(hash["Osteoporose"]["Depressão"]).to equal(1)
     end
   end
 end
