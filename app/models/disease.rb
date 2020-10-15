@@ -6,20 +6,25 @@ class Disease < ApplicationRecord
     length: { minimum: 2 }
 
   def self.related_pairs
-    two_disease_apps = Appointment.all.filter do |app|
-      app.diseases.size == 2
+    two_plus_disease_apps = Appointment.all.filter do |app|
+      app.diseases.size >= 2
     end
 
     hash = {}
 
-    two_disease_apps.each do |app|
+    two_plus_disease_apps.each do |app|
       diseases_name = app.diseases.map{ |d| d.name }
 
-      hash[diseases_name[0]] ||= { diseases_name[1] => 0 }
-      hash[diseases_name[0]][diseases_name[1]] += 1
+      diseases_name.each do |first|
+        diseases_name.each do |second|
+          unless first.eql? second
+            hash[first] ||= { "#{second}" => 0 }
 
-      hash[diseases_name[1]] ||= { diseases_name[0] => 0 }
-      hash[diseases_name[1]][diseases_name[0]] += 1
+            value = hash[first][second]
+            hash[first][second] = value.nil? ? 1 : value + 1
+          end
+        end
+      end
     end
 
     hash

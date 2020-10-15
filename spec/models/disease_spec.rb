@@ -48,5 +48,19 @@ RSpec.describe Disease, type: :model do
       expect(hash["Osteoporose"]).to have_key("Depressão")
       expect(hash["Osteoporose"]["Depressão"]).to equal(1)
     end
+
+    it "counts pairs even with appointment with more than 2 diseases" do
+      @appointment.diseases << Disease.create(name: "HIV")
+
+      hash = Disease.related_pairs
+
+      expect(hash).to have_key("Depressão")
+      expect(hash).to have_key("Osteoporose")
+      expect(hash).to have_key("HIV")
+
+      expect(hash["Depressão"]["Osteoporose"]).to equal(1)
+      expect(hash["HIV"]["Depressão"]).to equal(1)
+      expect(hash["Osteoporose"]["HIV"]).to equal(1)
+    end
   end
 end
