@@ -6,7 +6,7 @@ class Disease < ApplicationRecord
     length: { minimum: 2 }
 
   def self.related_pairs
-    hash = {}
+    counts = {}
 
     Appointment.with_diseases_at_least(2).each do |app|
       diseases_name = app.diseases.map{ |d| d.name }
@@ -14,17 +14,18 @@ class Disease < ApplicationRecord
       diseases_name.combination(2).each do |combination|
         first, second = combination[0], combination[1]
 
-        hash[first] ||= { "#{second}" => 0 }
-        hash[second] ||= { "#{first}" => 0 }
-
-        value = hash[first][second]
-        hash[first][second] = value.nil? ? 1 : value + 1
-
-        value = hash[second][first]
-        hash[second][first] = value.nil? ? 1 : value + 1
+        Disease.increment_count first, second, counts
+        Disease.increment_count second, first, counts
       end
     end
 
-    hash
+    counts
+  end
+
+  private
+
+  def self.increment_count(fst, snd, count)
+    count[fst] ||= { "#{snd}" => 0 }
+    count[fst][snd] = count[fst][snd].nil? ? 1 : count[fst][snd] + 1
   end
 end
