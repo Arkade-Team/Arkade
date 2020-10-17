@@ -5,6 +5,7 @@ class DiseaseController < ApplicationController
 
   def index
     @diseases = Disease.all
+    @related_diseases = Disease.related_pairs
   end
 
   def create
@@ -23,7 +24,6 @@ class DiseaseController < ApplicationController
     def set_appointment
       p_id = params[:appointment_id]
       @appointment = Appointment.find_by_id p_id
-      puts "p_id #{p_id}"
       if @appointment.nil?
         render json: { error: "appointment #{p_id} not found" }
       end

@@ -42,6 +42,6 @@ Então "a resposta deve ser um erro" do
   resp.should have_key("error")
 end
 
-Então "ele vê uma tabela contendo {string}" do |disease|
-  page.should have_content disease
+Então "ele vê um jumbotron" do
+  page.should have_selector(".jumbotron")
 end
