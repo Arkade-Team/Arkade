@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :actions
   post '/appointments', to: "appointment#create"
   get '/appointments', to: "appointment#index"
   get '/appointments/graphics/age', to: "appointment#agePerAppointments"
