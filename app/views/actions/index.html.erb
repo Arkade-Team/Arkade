@@ -1,0 +1,19 @@
+<h1>Ações</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Resultado</th>
+      <th>Tipo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @actions.each do |action| %>
+      <tr>
+        <td><%= action.name %></td>
+        <td><%= action.result %></td>
+        <td><%= action.type %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

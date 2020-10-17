@@ -31,3 +31,7 @@ n.times do
   data = (0..120).to_a.sample.days.ago
   appointment.update(created_at: data)
 end
+
+medicationAction = Action.create(name: "Advil", result: "Dor de cabeça", method: 1)
+appointment = Appointment.find_by(id: 1)
+appointment.actions = [medicationAction]
