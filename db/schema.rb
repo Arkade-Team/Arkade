@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(version: 2020_10_14_232908) do
     t.string "name"
     t.string "result"
     t.integer "method"
-    t.bigint "actionable_id"
+    t.bigint "appointment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["actionable_id"], name: "index_actions_on_actionable_id"
+    t.index ["appointment_id"], name: "index_actions_on_appointment_id"
   end
 
   create_table "appointments", force: :cascade do |t|
@@ -45,4 +45,5 @@ ActiveRecord::Schema.define(version: 2020_10_14_232908) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "actions", "appointments"
 end

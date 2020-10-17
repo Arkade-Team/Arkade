@@ -7,30 +7,27 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-# osteo = Disease.create([{ name: "Osteoporose" }])
+osteo = Disease.create([{ name: "Osteoporose" }])
 
-# 1000.times do
-#   appointment = Appointment.create({
-#     age: Random.new.rand(0..100),
-#     sex: ["male", "female"].sample
-#   })
+1000.times do
+  appointment = Appointment.create({
+    age: Random.new.rand(0..100),
+    sex: ["male", "female"].sample
+  })
 
-#   appointment.diseases << osteo
-# end
+  appointment.diseases << osteo
+end
 
-
-
-# n = Appointment.count
-# i = 0
-# n.times do
-#   i = i + 1
-#   appointment = Appointment.find_by(id: i)
-#   data = (0..120).to_a.sample.days.ago
-#   appointment.update(created_at: data)
-# end
+n = Appointment.count
+i = 0
+n.times do
+  i = i + 1
+  appointment = Appointment.find_by(id: i)
+  data = (0..120).to_a.sample.days.ago
+  appointment.update(created_at: data)
+end
 
 medicationAction = Action.create(name: "Advil", result: "Dor de cabeça", method: 1)
 appointment = Appointment.find_by(id: 1)
 disease = Disease.find_by(id: 1)
-# disease.actions = [medicationAction]
 appointment.actions = [medicationAction]

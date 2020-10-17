@@ -4,8 +4,7 @@ class CreateActions < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :result
       t.integer :method
-      t.references :actionable 
-
+      t.references :appointment, foreign_key: true
       t.timestamps
     end
   end
