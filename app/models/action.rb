@@ -1,5 +1,5 @@
 class Action < ApplicationRecord
-    belongs_to :actionable
+    belongs_to :appointment
 
     enum method: [:questionary, :calculator]
 end
