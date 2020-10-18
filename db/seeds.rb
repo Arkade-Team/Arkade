@@ -32,6 +32,10 @@ n.times do
   appointment.update(created_at: data)
 end
 
+gym = Action.create(name: "Exercicios físicos", result: "Prevenir a perda óssea", method: 1)
+sun = Action.create(name: "Exposição ao Sol ", result: "Vitamina D", method: 1)
+
 medicationAction = Action.create(name: "Advil", result: "Dor de cabeça", method: 1)
 appointment = Appointment.find_by(id: 1)
 appointment.actions = [medicationAction]
+

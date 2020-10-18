@@ -6,5 +6,9 @@ Rails.application.routes.draw do
 
   post '/appointments/:appointment_id/diseases', to: "disease#create"
   get '/diseases', to: "disease#index"
+
+  post '/appointments/:appointment_id/actions', to: "action#create"
+  get '/actions', to: "action#index"
+
   root "home#index"
 end
