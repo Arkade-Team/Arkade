@@ -5,6 +5,7 @@ class CreateActions < ActiveRecord::Migration[6.0]
       t.string :result
       t.integer :method
       t.references :appointment, foreign_key: true
+      t.references :disease, foreign_key: true
       t.timestamps
     end
   end
