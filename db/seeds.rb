@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
 osteo = Disease.create([{ name: "Osteoporose" }])
 depre = Disease.create([{ name: "Depressão" }])
 hiv = Disease.create([{ name: "HIV" }])
@@ -35,7 +37,5 @@ end
 gym = Action.create(name: "Exercicios físicos", result: "Prevenir a perda óssea", method: 1)
 sun = Action.create(name: "Exposição ao Sol ", result: "Vitamina D", method: 1)
 
-medicationAction = Action.create(name: "Advil", result: "Dor de cabeça", method: 1)
 appointment = Appointment.find_by(id: 1)
-appointment.actions = [medicationAction]
-
+appointment.actions = [gym, sun]

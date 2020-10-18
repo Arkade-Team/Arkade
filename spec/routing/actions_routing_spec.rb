@@ -13,6 +13,5 @@ RSpec.describe ActionsController, type: :routing do
     it "routes to #create" do
       expect(post: "/actions").to route_to("actions#create")
     end
-
   end
 end
