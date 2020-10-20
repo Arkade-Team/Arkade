@@ -11,10 +11,8 @@
         <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero"%>
       </div>
     </div>
-
     <div class="row">
       <div class="col">
-
         <h3>Consultas por período</h3>
         <table class="table table-bordered table-hover">
           <thead>
@@ -22,79 +20,39 @@
               <th scope="col">Data</th>
               <th scope="col">Período</th>
               <th scope="col">Qt. Consultas</th>
-              
             </tr>
           </thead>
           <tbody>
-
             <% 
-         #Adicionar 1h@consulta = Time.current + (1*3600);
-         #@consulta = Time.current + (7*3600);
-         #iniciando variaves
-         @periodo = "indefinido"
-         @madrugada = 0;
-         @manha = 0;
-         @tarde = 0;
-         @noite = 0;
-         @total_itens = 0
-         @consulta_antiga = Time.current + 3600;
-         
-            
-         @lastFifteenDaysPeriodo.each do |item|         
-         @total_itens += 1
-         #adicionando 1h para cada consulta efetuada (randomizar horarios consultas)
-         
-         @consulta = item.created_at + (@total_itens * 3600);  
-         
-         
-         
-         @consulta_antiga = @consulta.to_date #apenas data
-         
-         
-
-         #Regra divisão período
-         if @consulta.hour >=0 && @consulta.hour < 6
-         @periodo = "Madrugada"
-         @madrugada +=1 
-         elsif  @consulta.hour >=6 && @consulta.hour < 12
-         @periodo = "Manhã" 
-         @manha +=1 
-         elsif  @consulta.hour >=12 && @consulta.hour < 18
-         @periodo = "Tarde" 
-         @tarde +=1
-         elsif  @consulta.hour >=18 && @consulta.hour <= 23
-         @periodo = "Noite" 
-         @noite +=1
-         else 
-         @periodo = "Indefinido"
-         end
-         
-         
-         %>
-         
+          @i = 0
+          until @i >= @arrayPeriodo.length do %>
+            <tr>
+              <td rowspan="5"><%= @arrayPeriodo[@i] %></td>
+              <% @i+=1%>
             <tr scope="row">
-              <td> <%= @consulta %> </td>
-              <td> <%= @periodo %> </td>
-              <td>
-                <%= case @periodo
-                    when "Madrugada"
-                      @madrugada
-                    when "Manhã"
-                      @manha
-                    when "Tarde"
-                      @tarde
-                    when "Noite"
-                      @noite
-                    else
-                      "Indefinido"
-                    end
-                %>
-              </td>
-              </tr>
-            <% end %>
+              <td>Madrugada</td>
+              <td><%= @arrayPeriodo[@i] %></td>
+              <% @i+=1%>
+            </tr>
+            <tr scope="row">
+              <td>Manhã</td>
+              <td><%= @arrayPeriodo[@i] %></td>
+              <% @i+=1%>
+            </tr>
+            <tr scope="row">
+              <td>Tarde</td>
+              <td><%= @arrayPeriodo[@i] %></td>
+              <% @i+=1%>
+            </tr>
+            <tr scope="row">
+              <td>Noite</td>
+              <td><%= @arrayPeriodo[@i] %></td>
+              <% @i+=1%>
+            </tr>
+            </tr>
+            <% end #until%>
           </tbody>
         </table>
-
         <h3>Total Consultas por Período</h3>
         <table class="table table-bordered table-hover">
           <tr scope="row">
@@ -103,32 +61,26 @@
           </tr>
           <tr scope="row">
             <td>Madrugada</td>
-            <td><%= @madrugada %></td>
+            <td><%= @total_madrugada %></td>
           </tr>
           <tr scope="row">
             <td>Manhã</td>
-            <td><%= @manha %></td>
+            <td><%= @total_manha %></td>
           </tr>
           <tr scope="row">
             <td>Tarde</td>
-            <td><%= @tarde %></td>
+            <td><%= @total_tarde %></td>
           </tr>
           <tr scope="row">
             <td>Noite</td>
-            <td><%= @noite %></td>
+            <td><%= @total_noite %></td>
           </tr>
           <tr scope="row">
             <th colspan="2" class="center">Total Consultas: <%= @total_itens %></th>
-            
           </tr>
         </table>
-
-
-
       </div>
     </div>
-
-
     <div class="d-flex justify-content-center mt-4">
       <a href='#' onclick="window.print();" class='btn btn-dark'>Gerar PDF</a>
     </div>
