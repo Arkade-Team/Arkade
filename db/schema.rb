@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_232908) do
+ActiveRecord::Schema.define(version: 2020_10_20_012140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2020_10_14_232908) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["appointment_id"], name: "index_actions_on_appointment_id"
     t.index ["disease_id"], name: "index_actions_on_disease_id"
+  end
+
+  create_table "actions_appointments", id: false, force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.bigint "action_id", null: false
+  end
+
+  create_table "actions_diseases", id: false, force: :cascade do |t|
+    t.bigint "disease_id", null: false
+    t.bigint "action_id", null: false
   end
 
   create_table "appointments", force: :cascade do |t|
@@ -47,6 +57,20 @@ ActiveRecord::Schema.define(version: 2020_10_14_232908) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "prescriptions", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.bigint "disease_id", null: false
+    t.bigint "action_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["action_id"], name: "index_prescriptions_on_action_id"
+    t.index ["appointment_id"], name: "index_prescriptions_on_appointment_id"
+    t.index ["disease_id"], name: "index_prescriptions_on_disease_id"
+  end
+
   add_foreign_key "actions", "appointments"
   add_foreign_key "actions", "diseases"
+  add_foreign_key "prescriptions", "actions"
+  add_foreign_key "prescriptions", "appointments"
+  add_foreign_key "prescriptions", "diseases"
 end

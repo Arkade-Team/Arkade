@@ -1,6 +1,7 @@
 class Appointment < ApplicationRecord
   has_and_belongs_to_many :diseases
-  has_many :actions
+  has_and_belongs_to_many :actions
+  has_many :prescriptions
 
   validates :age, presence: true,
     numericality: {

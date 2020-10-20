@@ -10,8 +10,12 @@
 osteo = Disease.create([{ name: "Osteoporose" }])
 depre = Disease.create([{ name: "Depressão" }])
 hiv = Disease.create([{ name: "HIV" }])
-
 diseases = [osteo, depre, hiv]
+
+gym = Action.create(name: "Exercicios físicos", result: "Prevenir a perda óssea", method: 1)
+sun = Action.create(name: "Exposição ao Sol ", result: "Vitamina D", method: 1)
+advil = Action.create(name: "Advil", result: "Dores em geral", method: 1)
+actions = [gym, sun, advil]
 
 1000.times do
   appointment = Appointment.create({
@@ -23,6 +27,12 @@ diseases = [osteo, depre, hiv]
   diseases.shuffle[0...n_diseases].each do |disease|
     appointment.diseases << disease
   end
+
+  # n_actions = (rand * 3).floor + 1
+  # actions.shuffle[0...n_actions].each do |action|
+    appointment.actions << advil
+  # end
+
 end
 
 n = Appointment.count
@@ -34,8 +44,10 @@ n.times do
   appointment.update(created_at: data)
 end
 
-gym = Action.create(name: "Exercicios físicos", result: "Prevenir a perda óssea", method: 1)
-sun = Action.create(name: "Exposição ao Sol ", result: "Vitamina D", method: 1)
-
-appointment = Appointment.find_by(id: 1)
-appointment.actions = [gym, sun]
+n = Appointment.count
+i = 0
+n.times do
+  i = i + 1
+  appointment = Appointment.find_by(id: i)
+  Prescription.create()
+end

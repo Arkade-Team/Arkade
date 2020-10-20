@@ -1,6 +1,7 @@
 class Disease < ApplicationRecord
   has_and_belongs_to_many :appointments
-  has_many :actions
+  has_and_belongs_to_many :actions
+  has_many :prescriptions
 
   validates :name,
     uniqueness: true,
