@@ -22,7 +22,7 @@ class AppointmentController < ApplicationController
     @arrayPeriodo = []
     PreencherArrayPeriodo()     
   end
-
+=begin
   def regraPeriodo
     if @consulta.hour >=0 && @consulta.hour < 6
       @periodo = "Madrugada"
@@ -42,20 +42,43 @@ class AppointmentController < ApplicationController
       @noite +=1
     end
   end
+=end
+  def regraPeriodoCase
+    case @consulta.hour
+    when 0..5
+      @periodo = "Madrugada"
+      @total_madrugada +=1
+      @madrugada +=1
+    when 6..11
+      @periodo = "Manhã" 
+      @total_manha +=1
+      @manha +=1 
+    when 12..17
+      @periodo = "Tarde"
+      @total_tarde +=1 
+      @tarde +=1
+    when 18..23
+      @periodo = "Noite" 
+      @total_noite +=1
+      @noite +=1
+    else
+      "Indefinido"
+    end
+  end
 
   def PreencherArrayPeriodo
     @lastFifteenDaysPeriodo.each do |item|         
       @total_itens += 1
       @consulta = item.created_at + (@total_itens * 3600);  
       if @consulta.to_date == @consulta_antiga.to_date
-        regraPeriodo()
+        regraPeriodoCase()
       else
         @madrugada = 0
         @manha = 0
         @tarde = 0
         @noite = 0
         @consulta_antiga = @consulta.to_date
-        regraPeriodo()
+        regraPeriodoCase()
       end
       
       if @arrayPeriodo.include?(@consulta.strftime("%d/%m/%Y")) == false
