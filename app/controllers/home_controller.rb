@@ -6,7 +6,6 @@ class HomeController < ApplicationController
   def index
     @team = [
       "Alécio Godoi",
-      "Daniel Quiteque",
       "Fábio Nogueira",
       "Gustavo Molina",
       "João Daniel",

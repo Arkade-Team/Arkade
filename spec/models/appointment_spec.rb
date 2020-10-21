@@ -24,7 +24,7 @@ RSpec.describe Appointment, type: :model do
     expect(@appointment).not_to be_valid
   end
 
-  it "fails to create when sex isn't exactally male or female" do
+  it "fails to create when sex isn't exactly male or female" do
     @appointment.age = 42
     @appointment.sex = "male anything"
 
@@ -34,6 +34,13 @@ RSpec.describe Appointment, type: :model do
   it "accepts ' MALE ' as a valid sex" do
     @appointment.age = 42
     @appointment.sex = " MALE "
+
+    expect(@appointment).to be_valid
+  end
+
+  it "accepts ' FEMALE ' as a valid sex" do
+    @appointment.age = 37
+    @appointment.sex = " FEMALE "
 
     expect(@appointment).to be_valid
   end

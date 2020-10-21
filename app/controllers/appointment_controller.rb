@@ -6,6 +6,7 @@ class AppointmentController < ApplicationController
     @daysAgo = 15
     @fifteenDaysAgo = Time.now - (@daysAgo * 24 * 60 * 60)
     @lastFifteenDays = Appointment.where("created_at >= ?", @fifteenDaysAgo ).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
+    @sex = Appointment.group('sex').order('sex').count
   end
 
   def create
