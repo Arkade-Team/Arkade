@@ -20,29 +20,9 @@ class AppointmentController < ApplicationController
     @total_itens = 0
     @consulta_antiga = Time.current + 3600; #ConsultaAntiga incia no futuro.
     @arrayPeriodo = []
-    PreencherArrayPeriodo()     
+    ConsultarPeriodo()     
   end
-=begin
-  def regraPeriodo
-    if @consulta.hour >=0 && @consulta.hour < 6
-      @periodo = "Madrugada"
-      @total_madrugada +=1
-      @madrugada +=1 
-    elsif  @consulta.hour >=6 && @consulta.hour < 12
-      @periodo = "Manhã" 
-      @total_manha +=1
-      @manha +=1 
-    elsif  @consulta.hour >=12 && @consulta.hour < 18
-      @periodo = "Tarde"
-      @total_tarde +=1 
-      @tarde +=1
-    else  @consulta.hour >=18 && @consulta.hour <= 23
-      @periodo = "Noite" 
-      @total_noite +=1
-      @noite +=1
-    end
-  end
-=end
+
   def regraPeriodoCase
     case @consulta.hour
     when 0..5
@@ -66,7 +46,16 @@ class AppointmentController < ApplicationController
     end
   end
 
-  def PreencherArrayPeriodo
+  def preencherArray
+    if @arrayPeriodo.include?(@consulta.strftime("%d/%m/%Y")) == false
+      @arrayPeriodo << @consulta.strftime("%d/%m/%Y") << @madrugada << @manha << @tarde << @noite
+    else
+      @arrayPeriodo.pop(5)
+      @arrayPeriodo << @consulta.strftime("%d/%m/%Y") << @madrugada << @manha << @tarde << @noite            
+    end
+  end
+
+  def ConsultarPeriodo
     @lastFifteenDaysPeriodo.each do |item|         
       @total_itens += 1
       @consulta = item.created_at + (@total_itens * 3600);  
@@ -80,13 +69,7 @@ class AppointmentController < ApplicationController
         @consulta_antiga = @consulta.to_date
         regraPeriodoCase()
       end
-      
-      if @arrayPeriodo.include?(@consulta.strftime("%d/%m/%Y")) == false
-        @arrayPeriodo << @consulta.strftime("%d/%m/%Y") << @madrugada << @manha << @tarde << @noite
-      else
-        @arrayPeriodo.pop(5)
-        @arrayPeriodo << @consulta.strftime("%d/%m/%Y") << @madrugada << @manha << @tarde << @noite            
-      end
+      preencherArray()
     end
   end
   
