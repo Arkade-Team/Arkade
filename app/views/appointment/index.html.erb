@@ -24,30 +24,30 @@
           </thead>
           <tbody>
             <% 
-          @i = 0
-          until @i >= @arrayPeriodo.length do %>
+          i = 0
+          until i >= @arrayPeriodo.length do %>
             <tr>
-              <td rowspan="5"><%= @arrayPeriodo[@i] %></td>
-              <% @i+=1%>
+              <td rowspan="5"><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
             <tr scope="row">
               <td>Madrugada</td>
-              <td><%= @arrayPeriodo[@i] %></td>
-              <% @i+=1%>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
             </tr>
             <tr scope="row">
               <td>Manhã</td>
-              <td><%= @arrayPeriodo[@i] %></td>
-              <% @i+=1%>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
             </tr>
             <tr scope="row">
               <td>Tarde</td>
-              <td><%= @arrayPeriodo[@i] %></td>
-              <% @i+=1%>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
             </tr>
             <tr scope="row">
               <td>Noite</td>
-              <td><%= @arrayPeriodo[@i] %></td>
-              <% @i+=1%>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
             </tr>
             </tr>
             <% end #until%>

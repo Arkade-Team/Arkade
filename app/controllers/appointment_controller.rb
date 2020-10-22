@@ -5,9 +5,9 @@ class AppointmentController < ApplicationController
     @appointments = Appointment.all
     @daysAgo = 15
     @fifteenDaysAgo = Time.now - (@daysAgo * 24 * 60 * 60)
-    @lastFifteenDays = Appointment.where("created_at >= ?", @fifteenDaysAgo ).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
+    @lastFifteenDays = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
     
-    @lastFifteenDaysPeriodo = Appointment.where("created_at >= ?", @fifteenDaysAgo ).group('date(created_at), id').order('date(created_at)')
+    @lastFifteenDaysPeriodo = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo, Time.now).order('date(created_at)')
        
     @madrugada = 0
     @total_madrugada = 0
@@ -58,7 +58,7 @@ class AppointmentController < ApplicationController
   def ConsultarPeriodo
     @lastFifteenDaysPeriodo.each do |item|         
       @total_itens += 1
-      @consulta = item.created_at + (@total_itens * 3600);  
+      @consulta = item.created_at #+ (@total_itens * 3600);  
       if @consulta.to_date == @consulta_antiga.to_date
         regraPeriodoCase()
       else
