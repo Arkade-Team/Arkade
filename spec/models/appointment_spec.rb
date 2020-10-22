@@ -37,4 +37,11 @@ RSpec.describe Appointment, type: :model do
 
     expect(@appointment).to be_valid
   end
+  
+  it "accepts ' FEMALE ' as a valid sex" do
+    @appointment.age = 37
+    @appointment.sex = " FEMALE "
+
+    expect(@appointment).to be_valid
+  end
 end
