@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 osteo = Disease.create([{ name: "Osteoporose" }])
+depre = Disease.create([{ name: "Depressão" }])
+hiv = Disease.create([{ name: "HIV" }])
+
+diseases = [osteo, depre, hiv]
 
 1000.times do
   appointment = Appointment.create({
@@ -13,7 +17,10 @@ osteo = Disease.create([{ name: "Osteoporose" }])
     sex: ["male", "female"].sample
   })
 
-  appointment.diseases << osteo
+  n_diseases = (rand * 3).floor + 1
+  diseases.shuffle[0...n_diseases].each do |disease|
+    appointment.diseases << disease
+  end
 end
 
 n = Appointment.count

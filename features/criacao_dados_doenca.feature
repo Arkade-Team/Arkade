@@ -9,7 +9,7 @@ Funcionalidade: Criar dados de Doenças Investigadas
     Dado uma consulta que investigou "Osteoporose"
     Quando o cliente acessa a homepage
     E o cliente clica em "Doenças"
-    Então ele vê uma tabela contendo "Osteoporose"
+    Então ele vê um jumbotron
 
   Cenário: Criar uma doença com sucesso
     Dado uma consulta de "female" de "65" anos

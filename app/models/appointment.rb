@@ -13,6 +13,10 @@ class Appointment < ApplicationRecord
 
   before_validation :format_params
 
+  def self.with_diseases_at_least(n)
+    Appointment.joins(:diseases).group("appointments.id").having("count(appointments_diseases.appointment_id) >= ?", [n])
+  end
+
   private
     def format_params
       self.sex = sex.downcase.strip unless sex.nil?

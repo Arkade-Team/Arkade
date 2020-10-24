@@ -6,9 +6,9 @@ class AppointmentController < ApplicationController
     @daysAgo = 15
     @fifteenDaysAgo = Time.now - (@daysAgo * 24 * 60 * 60)
     @lastFifteenDays = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
-    
+    @sex = Appointment.group('sex').order('sex').count
     @lastFifteenDaysPeriodo = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo, Time.now).order('date(created_at)')
-       
+
     @madrugada = 0
     @total_madrugada = 0
     @manha = 0

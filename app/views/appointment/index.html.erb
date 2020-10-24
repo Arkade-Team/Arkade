@@ -13,6 +13,12 @@
     </div>
     <div class="row">
       <div class="col">
+        <%= column_chart @sex, title: "Distribuição Por Sexo "%>
+
+    </div>
+
+    <div class="row">
+      <div class="col">
         <h3>Consultas por período</h3>
         <table class="table table-bordered table-hover">
           <thead>
@@ -79,7 +85,8 @@
             <th colspan="2" class="center">Total Consultas: <%= @total_itens %></th>
           </tr>
         </table>
-      </div>
+    <hr>
+    
     </div>
     <div class="d-flex justify-content-center mt-4">
       <a href='#' onclick="window.print();" class='btn btn-dark'>Gerar PDF</a>
