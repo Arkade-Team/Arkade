@@ -28,6 +28,6 @@ i = 0
 n.times do
   i = i + 1
   appointment = Appointment.find_by(id: i)
-  data = (0..120).to_a.sample.days.ago
+  data = ((0..120).to_a.sample.days.ago) + (i * 3600)
   appointment.update(created_at: data)
 end
