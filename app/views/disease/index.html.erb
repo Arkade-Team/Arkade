@@ -1,5 +1,6 @@
 <div class="jumbotron">
   <div id="related_diseases" class="container">
+    <h4>Doenças investigadas em conjunto</h4>
     <% @related_diseases.each_key do |first| %>
       <div class="row" id="<%= first %>">
         <div class="col mt-4">
@@ -14,5 +15,28 @@
         <% end %>
       </div>
     <% end %>
+  </div>
+</p>
+
+  <div id="consult_diseases" class="container">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr scope="row">
+          <th scope="col" colspan="2"><h4>Total de consultas por doenças</h4></th>
+        </tr>
+        <tr>
+          <th scope="col">Doença</th>
+          <th scope="col">Qt. Consultas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @diseases.each do |disease| %>
+          <tr scope="row" id="<%= disease.name %>">
+            <td><%= disease.name %></td>
+            <td><%= disease.appointments.count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
