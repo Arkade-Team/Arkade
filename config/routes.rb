@@ -5,5 +5,8 @@ Rails.application.routes.draw do
 
   post '/appointments/:appointment_id/diseases', to: "disease#create"
   get '/diseases', to: "disease#index"
+
+  get '/actions', to: "appointment_action#index"
+
   root "home#index"
 end
