@@ -11,7 +11,7 @@ Dado "uma consulta que investigou {string}" do |disease|
   Disease.delete_all
   Appointment.delete_all
   @disease = Disease.find_by_name(disease) || Disease.create(name: disease)
-  @appointment = Appointment.create(sex: "female", age: 55)
+  @appointment = Appointment.create(sex: "female", age: 54)
 
   @appointment.diseases << @disease
 end
