@@ -9,6 +9,10 @@ class AppointmentController < ApplicationController
     @sex = Appointment.group('sex').order('sex').count
     @lastFifteenDaysPeriodo = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo, Time.now).order('date(created_at)')
 
+    @diseasesByAge = Appointment.joins(:diseases).group('diseases.name').group('appointments.age').count
+    @sexByDiseases = Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
+
+    
     @madrugada = 0
     @total_madrugada = 0
     @manha = 0

@@ -11,12 +11,25 @@
         <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero"%>
       </div>
     </div>
+    
     <div class="row">
       <div class="col">
-        <%= column_chart @sex, title: "Distribuição Por Sexo "%>
+          <%= column_chart @sex, title: "Distribuição Por Sexo "%>
+      </div>
+    </div>
 
+    <hr>
+    <h3>Doenças por perfil</h3>
+    <div class="row">
+      <div class="col-3">
+        <%= column_chart @sexByDiseases, title: "Sexo x Doenças" %>
+      </div>
+      <div class="col-9">
+        <%= column_chart @diseasesByAge, title: "Doenças x Idade", stacked:true %>
+      </div>
     </div>
-    </div>
+
+    <hr>
     <div class="row">
       <div class="col">
         <h3>Consultas por período</h3>
