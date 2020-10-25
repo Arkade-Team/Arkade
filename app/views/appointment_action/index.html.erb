@@ -1,0 +1,27 @@
+<div class="jumbotron">
+    <div class="row">
+      <div class="col">
+        <h3>Ações</h3>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Resultado</th>
+              <th scope="col">Qt. Consultas</th>
+            </tr>
+          </thead>
+        <tbody>
+
+        <% @actions.each do |actionGrouped| %>
+          <tr scope="row">
+            <td> <%= actionGrouped[0][0] %> </td> 
+            <td> <%= actionGrouped[0][1] %> </td> 
+            <td> <%= actionGrouped[1] %> </td>
+          </tr>
+        <% end %>
+
+        </tbody>
+        </table>
+    </div>
+    </div>
+  </div>
