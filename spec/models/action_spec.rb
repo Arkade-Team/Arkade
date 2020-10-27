@@ -8,17 +8,17 @@ RSpec.describe Action, type: :model do
   end
 
   it "after create an appointment with disease. Should create action automatically" do
-    expect(Action.all.count == 0)
+    expect(Action.all.count).to eq(0)
 
     hiv = Disease.create([{ name: "HIV" }])
     @appointment.diseases << hiv
     @appointment.save
 
-    expect(Action.all.count == 1)
+    expect(Action.all.count).to eq(1)
   end
 
   it "action should be update with name and result" do
-    expect(Action.all.count == 0)
+    expect(Action.all.count).to eq(0)
 
     @hiv = Disease.create( name: "HIV" )
     @hiv.save
@@ -32,7 +32,7 @@ RSpec.describe Action, type: :model do
     sut.name = name
     sut.result = result
 
-    expect(Action.all.count == 1)
+    expect(Action.all.count).to eq(1)
 
     expect(sut.appointment_id == @appointment.id)
     expect(sut.disease_id == @hiv.id)
