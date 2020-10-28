@@ -8,7 +8,3 @@ Funcionalidade: Cadastro de ações por doença
 Cenário: Acessar ações
     Quando o coordenador acessar a página de ações
     Então deverá ver um formulário contendo as ações cadastradas
-
-Cenário: Criar uma ação
-    Quando o cliente requisita POST para adicionar ações com nome "Frax" e resultado "incompleto" na consulta "2" com doença "3"
-    Então a resposta deve conter uma ação
