@@ -18,7 +18,7 @@
   </div>
 </p>
 
-  <div id="consult_diseases" class="container">
+  <div id="consult_diseases" class="container consult_diseases">
     <table class="table table-bordered table-hover">
       <thead>
         <tr scope="row">
@@ -31,7 +31,7 @@
       </thead>
       <tbody>
         <% @diseases.each do |disease| %>
-          <tr scope="row" id="<%= disease.name %>">
+          <tr scope="row" id="<%= disease.name %>" class="disease_total">
             <td><%= disease.name %></td>
             <td><%= disease.appointments.count %></td>
           </tr>
