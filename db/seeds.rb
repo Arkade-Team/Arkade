@@ -5,29 +5,118 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-osteo = Disease.create([{ name: "Osteoporose" }])
-depre = Disease.create([{ name: "Depressão" }])
-hiv = Disease.create([{ name: "HIV" }])
 
-diseases = [osteo, depre, hiv]
+def distribution elements_with_counts
+  pool = []
 
-1000.times do
-  appointment = Appointment.create({
-    age: Random.new.rand(0..100),
-    sex: ["male", "female"].sample
-  })
+  elements_with_counts.each_pair do |element, count|
+    count = 0 if count < 0
+    pool.append([element] * count)
+  end
 
-  n_diseases = (rand * 3).floor + 1
-  diseases.shuffle[0...n_diseases].each do |disease|
-    appointment.diseases << disease
+  pool.flatten
+end
+
+def random_date from = Time.new(2020, 8, 1), to = Time.new(2020, 12, 18)
+  Time.at(rand(from.to_i..to.to_i))
+end
+
+def pick_date
+  day = random_date
+  day -= (-12..12).to_a.sample.hours
+  day -= (-30..30).to_a.sample.minutes
+
+  day
+end
+
+def generate_appointments age_distribution, sex_distribution, diseases, m = 400
+  n = (m * rand).to_i
+
+  n.times do
+    day = pick_date
+
+    age = age_distribution.sample
+    sex = sex_distribution.sample
+
+    appointment = Appointment.new
+    appointment.created_at = day
+    appointment.updated_at = day
+    appointment.age = age
+    appointment.sex = sex
+
+    appointment.save
+
+    diseases.each { |disease| appointment.diseases << disease }
   end
 end
 
-n = Appointment.count
-i = 0
-n.times do
-  i = i + 1
-  appointment = Appointment.find_by(id: i)
-  data = ((0..120).to_a.sample.days.ago) + (i * 3600)
-  appointment.update(created_at: data)
+def generate_cross_disease_appointments diseases, m = 100
+  age_base = {}
+  (0..100).each { |i| age_base[i] = i ** 2 * (-1) + 100 * i }
+  cutting_point = (100 * rand).to_i
+  sex_base = { "male" => cutting_point, "female" => 100 - cutting_point }
+
+  age_distribution = distribution age_base
+  sex_distribution = distribution sex_base
+
+  (1..diseases.size).each do |i|
+    diseases.combination(i).each do |combination|
+      generate_appointments age_distribution, sex_distribution, combination, m
+    end
+  end
 end
+
+
+## Appointments with "Osteoporose" only
+
+osteoporose = Disease.create(name: "Osteoporose")
+
+age_base = {}
+(0..45).each { |i| age_base[i] = i ** 2 }
+(46..65).each { |i| age_base[i] = age_base[45] * (i - 45) }
+(66..100).each { |i| age_base[i] = age_base[45] * (100 - i) * 2 }
+
+sex_base = { "male" => 1, "female" => 9 }
+
+age_distribution = distribution age_base
+sex_distribution = distribution sex_base
+
+generate_appointments age_distribution, sex_distribution, [osteoporose]
+
+
+## Appointments with "HIV" only
+
+hiv = Disease.create(name: "HIV")
+
+(0..12).each { |i| age_base[i] = i ** 2 }
+(13..35).each { |i| age_base[i] = i ** 2 + (i - 13) * 10 }
+(36..60).each { |i| age_base[i] = age_base[35] + (60 - i) }
+(61..100).each { |i| age_base[i] = age_base[60] - (60 - i) ** 2 }
+
+sex_base = { "male" => 1, "female" => 1 }
+
+age_distribution = distribution age_base
+sex_distribution = distribution sex_base
+
+generate_appointments age_distribution, sex_distribution, [hiv]
+
+
+## Appointments with "Depressão" only
+
+depressao = Disease.create(name: "Depressão")
+
+(0..18).each { |i| age_base[i] = 4 * i }
+(19..60).each { |i| age_base[i] = 0.5 * i + 66.5 }
+(61..100).each { |i| age_base[i] = i + 35.5}
+
+sex_base = { "male" => 1, "female" => 1 }
+
+age_distribution = distribution age_base
+sex_distribution = distribution sex_base
+
+generate_appointments age_distribution, sex_distribution, [depressao]
+
+
+## Appointments with multiple diseases
+
+generate_cross_disease_appointments [osteoporose, hiv, depressao]
