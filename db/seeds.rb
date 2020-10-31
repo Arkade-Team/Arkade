@@ -9,6 +9,24 @@ osteo = Disease.create([{ name: "Osteoporose" }])
 depre = Disease.create([{ name: "Depressão" }])
 hiv = Disease.create([{ name: "HIV" }])
 
+=begin
+n = 0
+20.times do
+  n = n + 1
+  i = rand(1..15)
+  k = 1
+  Wiki.create(name: ("Wiki "+ n.to_s.rjust(3,'0')), readingtime: Date.current)
+  i.times do
+    Tab.create(
+      wiki_id: n,
+      title: ("Title " + n.to_s.rjust(3,'0') + "." + k.to_s.rjust(3,'0')), 
+      body:  ("Body "  + n.to_s.rjust(3,'0') + "." + k.to_s.rjust(3,'0')) 
+    )
+    k = k + 1
+  end
+end
+=end
+
 diseases = [osteo, depre, hiv]
 
 1000.times do

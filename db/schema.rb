@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_03_232754) do
+ActiveRecord::Schema.define(version: 2020_10_31_005130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,26 @@ ActiveRecord::Schema.define(version: 2020_10_03_232754) do
   end
 
   create_table "diseases", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "readingtimes", force: :cascade do |t|
+    t.bigint "wiki_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["wiki_id"], name: "index_readingtimes_on_wiki_id"
+  end
+
+  create_table "tabs", force: :cascade do |t|
+    t.bigint "wiki_id"
+    t.string "title"
+    t.string "body"
+    t.index ["wiki_id"], name: "index_tabs_on_wiki_id"
+  end
+
+  create_table "wikis", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
