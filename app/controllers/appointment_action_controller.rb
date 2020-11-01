@@ -22,8 +22,6 @@ class AppointmentActionController < ApplicationController
 
       if @action.save
         render json: @action
-      else
-        render json: { errors: @action.errors }
       end
     end
 end
