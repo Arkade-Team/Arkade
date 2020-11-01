@@ -6,15 +6,12 @@ class AppointmentActionController < ApplicationController
     end
 
     def create
-        name = params[:name]
-        result = params[:result]
-       
-        if name || result
+        if params[:name] && params[:result]
          
           @action = Action.find_by(appointment_id: params[:appointment_id], 
             disease_id: params[:disease_id])
-          @action.name = name
-          @action.result = result
+          @action.name = params[:name]
+          @action.result = params[:result]
 
           if @action.save
             render json: @action
