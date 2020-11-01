@@ -34,9 +34,9 @@ RSpec.describe Action, type: :model do
 
     expect(Action.all.count).to eq(1)
 
-    expect(sut.appointment_id == @appointment.id)
-    expect(sut.disease_id == @hiv.id)
-    expect(sut.name == name)
-    expect(sut.result == result)
+    expect(sut.appointment_id).to eq(@appointment.id)
+    expect(sut.disease_id).to eq(@hiv.id)
+    expect(sut.name).to eq(name)
+    expect(sut.result).to eq(result)
   end
 end
