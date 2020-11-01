@@ -6,17 +6,26 @@ class AppointmentActionController < ApplicationController
     end
 
     def create
-        appointment = params[:appointment_id]
-        disease = params[:disease_id]
-        
-        @action = Action.find_by(appointment_id: appointment, disease_id: disease)
-        @action.name = params[:name]
-        @action.result = params[:result]
+        name = params[:name]
+        result = params[:result]
+       
+        if name && result
+          
+          appointment = params[:appointment_id]
+          disease = params[:disease_id]
+         
+          @action = Action.find_by(appointment_id: appointment, disease_id: disease)
+          @action.name = name
+          @action.result = result
 
-        if @action.save
-          render json: @action
-        else
-          render json: { errors: @action.errors }
+          if @action.save
+            render json: @action
+          else
+            render json: { errors: @action.errors }
+          end
+
+        else 
+          render json: { error: "Missing Params" }, status: 400
         end
       end
 end
