@@ -9,12 +9,10 @@ class AppointmentActionController < ApplicationController
         name = params[:name]
         result = params[:result]
        
-        if name && result
-          
-          appointment = params[:appointment_id]
-          disease = params[:disease_id]
+        if name || result
          
-          @action = Action.find_by(appointment_id: appointment, disease_id: disease)
+          @action = Action.find_by(appointment_id: params[:appointment_id], 
+            disease_id: params[:disease_id])
           @action.name = name
           @action.result = result
 
