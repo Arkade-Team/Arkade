@@ -13,7 +13,7 @@ class AppointmentActionController < ApplicationController
         end
     end
 
-    private
+  private
     def updateAction
       @action = Action.find_by(appointment_id: params[:appointment_id], 
         disease_id: params[:disease_id])
