@@ -12,7 +12,6 @@ RSpec.describe "AppointmentActions", type: :request do
       end
 
     describe "POST /create" do
-        context "with valid parameters" do
         it "creates a new AppointmentAction" do
             
             app = Appointment.create sex: "male", age: 42
@@ -27,23 +26,20 @@ RSpec.describe "AppointmentActions", type: :request do
             expect(resp["error"]).to be_nil
             expect(response.status).to eq 200
         end
-        end
 
-        context "with wrong valid parameters" do
-            it "creates a new AppointmentAction" do
-                
-                app = Appointment.create sex: "male", age: 99
-                hiv = Disease.create name: "HIV+"
-                
-                app.diseases << hiv
-    
-                post "/appointments/#{app.id}/diseases/#{hiv.id}/actions"
-    
-                resp = JSON.parse(response.body)
-                expect(resp["error"]).not_to be_nil
-                expect(response.status).to eq 400
-            end
-            end
+        it "should fail creating a new AppointmentAction" do
+            
+            app = Appointment.create sex: "male", age: 99
+            hiv = Disease.create name: "HIV+"
+            
+            app.diseases << hiv
+
+            post "/appointments/#{app.id}/diseases/#{hiv.id}/actions"
+
+            resp = JSON.parse(response.body)
+            expect(resp["error"]).not_to be_nil
+            expect(response.status).to eq 400
+        end
     end
 
 end
