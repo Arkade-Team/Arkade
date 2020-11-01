@@ -12,15 +12,15 @@ class AppointmentActionController < ApplicationController
             disease_id: params[:disease_id])
           @action.name = params[:name]
           @action.result = params[:result]
+
+          if @action.save
+            render json: @action
+          else
+            render json: { errors: @action.errors }
+          end
+
         else 
           render json: { error: "Missing Params" }, status: 400
         end
-
-        if @action.save
-          render json: @action
-        else
-          render json: { errors: @action.errors }
-        end
-        
-      end
+    end
 end
