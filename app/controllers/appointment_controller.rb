@@ -64,15 +64,14 @@ class AppointmentController < ApplicationController
       @total_itens += 1
       @consulta = item.created_at #+ (@total_itens * 3600);  
       if @consulta.to_date == @consulta_antiga.to_date
-        regraPeriodoCase()
       else
         @madrugada = 0
         @manha = 0
         @tarde = 0
         @noite = 0
         @consulta_antiga = @consulta.to_date
-        regraPeriodoCase()
       end
+      regraPeriodoCase()
       preencherArray()
     end
   end
