@@ -8,7 +8,21 @@
     <hr>
     <div class="row">
       <div class="col">
-        <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero"%>
+        <div class='col-4'>
+          <%= form_tag(appointments_path, :method => "get", id: "days-form") do %>
+            <%= number_field_tag :days, params[:days], placeholder: "Selecione a quantidade de dias", step: 0.1, class:"form-control" %>
+
+            <div class='d-flex justify-content-end'>
+              <%= submit_tag "Pesquisar", class:"btn btn-dark mt-2 mr-2" %>
+              <%= link_to "Limpar", appointments_path, class:'btn btn-danger mt-2' %>
+            </div>
+          <% end %>
+        </div>
+        <% if @daysAgo == 0 %>
+          <%= column_chart @lastFifteenDays, title: "Consultas de hoje por Gênero"%>
+        <% else %>
+          <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero"%>
+        <% end %>
       </div>
     </div>
     
@@ -113,4 +127,3 @@
       <a href='#' onclick="window.print();" class='btn btn-dark'>Gerar PDF</a>
     </div>
   </div>
-</div>

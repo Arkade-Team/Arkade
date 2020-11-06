@@ -3,9 +3,9 @@ class AppointmentController < ApplicationController
 
   def index 
     @appointments = Appointment.all
-    @daysAgo = 15
-    @fifteenDaysAgo = Time.now - (@daysAgo * 24 * 60 * 60)
-    @lastFifteenDays = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
+    @daysAgo = params[:days].present? ? params[:days].to_i.abs : 0
+    @fifteenDaysAgo = @daysAgo != 0? (Time.now - (@daysAgo * 24 * 60 * 60)) : (Date.today - (@daysAgo * 24 * 60 * 60))
+    @lastFifteenDays = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
     @sex = Appointment.group('sex').order('sex').count
     @lastFifteenDaysPeriodo = Appointment.where("created_at >= ? and created_at <= ?", @fifteenDaysAgo, Time.now).order('date(created_at)')
 
