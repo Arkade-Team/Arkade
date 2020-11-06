@@ -17,7 +17,15 @@
           <%= column_chart @sex, title: "Distribuição Por Sexo "%>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col">
+          <%= line_chart @consultsDiseasesHistory, messages: {empty: "Sem historico consultas"}, id: "consultsDiseasesHistory", download: true, title: "Histórico de Consultas por Doenças"%>
+          <!-- Quando não tem dados:
+            <div id="consultsDiseasesHistory" style="height: 300px; width: 100%; text-align: center; color: #999; line-height: 300px; font-size: 14px; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;">Sem historico consultas</div> 
+          -->
+      </div>
+    </div>
+    
     <hr>
     <h3>Doenças por perfil</h3>
     <div class="row">

@@ -11,20 +11,8 @@ class AppointmentController < ApplicationController
 
     @diseasesByAge = Appointment.joins(:diseases).group('diseases.name').group('appointments.age').count
     @sexByDiseases = Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
-
-    
-    @madrugada = 0
-    @total_madrugada = 0
-    @manha = 0
-    @total_manha = 0
-    @tarde = 0
-    @total_tarde = 0
-    @noite = 0
-    @total_noite = 0
-    @total_itens = 0
-    @consulta_antiga = Time.current + 3600; #ConsultaAntiga incia no futuro.
-    @arrayPeriodo = []
-    ConsultarPeriodo()     
+    ConsultarPeriodo()
+    @consultsDiseasesHistory = Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", @fifteenDaysAgo.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
   end
 
   def regraPeriodoCase
@@ -60,19 +48,30 @@ class AppointmentController < ApplicationController
   end
 
   def ConsultarPeriodo
+    @madrugada = 0
+    @total_madrugada = 0
+    @manha = 0
+    @total_manha = 0
+    @tarde = 0
+    @total_tarde = 0
+    @noite = 0
+    @total_noite = 0
+    @total_itens = 0
+    @consulta_antiga = Time.current + 3600; #ConsultaAntiga incia no futuro.
+    @arrayPeriodo = []
+
     @lastFifteenDaysPeriodo.each do |item|         
       @total_itens += 1
       @consulta = item.created_at #+ (@total_itens * 3600);  
       if @consulta.to_date == @consulta_antiga.to_date
-        regraPeriodoCase()
       else
         @madrugada = 0
         @manha = 0
         @tarde = 0
         @noite = 0
         @consulta_antiga = @consulta.to_date
-        regraPeriodoCase()
       end
+      regraPeriodoCase()
       preencherArray()
     end
   end
