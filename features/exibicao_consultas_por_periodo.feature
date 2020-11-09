@@ -7,4 +7,5 @@ QUERO uma tabela que agregue os dados das consultas dos últimos 15 dias por per
 
 Cenário: Visualizar quantidade de consultas por período
     Quando o coordenador acessa a página de consultas por período
-    Então ele vê uma tabela contendo a quantidade de consultas por período
+    Então ele vê uma tabela contendo o total de consultas por período
+    E um botão "Detalhes" para o detalhamento diario.

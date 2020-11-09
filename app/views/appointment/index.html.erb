@@ -2,99 +2,113 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <%= column_chart Appointment.group(:age).count, title: "Distribuição das idades" %>
+        <%= column_chart Appointment.group(:age).count, title: "Distribuição das idades", download: true %>
       </div>
     </div>
     <hr>
-    <div class="row">
-      <div class="col">
-        <div class='col-4'>
-          <%= form_tag(appointments_path, :method => "get", id: "days-form") do %>
-            <%= number_field_tag :days, params[:days], placeholder: "Selecione a quantidade de dias", step: 0.1, class:"form-control" %>
-
-            <div class='d-flex justify-content-end'>
-              <%= submit_tag "Pesquisar", class:"btn btn-dark mt-2 mr-2" %>
-              <%= link_to "Limpar", appointments_path, class:'btn btn-danger mt-2' %>
-            </div>
-          <% end %>
-        </div>
-        <% if @daysAgo == 0 %>
-          <%= column_chart @lastFifteenDays, title: "Consultas de hoje por Gênero"%>
-        <% else %>
-          <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero"%>
+    <div class="row justify-content-md-center">
+      <div class="col-md-4">
+        Filtrar consultas por quantidade de dias atrás:
+        <%= form_tag(appointments_path, :method => "get", id: "days-form") do %>
+        <%= number_field_tag :days, params[:days], placeholder: "Exemplo: 15", step: 1, class:"form-control" %>
+        <%= submit_tag "Pesquisar", class:"btn btn-dark mt-2 mr-2" %>
+        <%= link_to "Limpar", appointments_path, class:'btn btn-danger mt-2' %>
         <% end %>
       </div>
+      <%
+      if @daysAgo == 0 
+        @dias = "de hoje"
+      else
+        @dias = "Ultimos #{@daysAgo} Dias"
+      end
+      %>
+      <%= column_chart @lastFifteenDays, title: "Consultas #{@dias} por Gênero", download: true %>
+      
     </div>
-    
+
     <div class="row">
       <div class="col">
-          <%= column_chart @sex, title: "Distribuição Por Sexo "%>
+        <%= column_chart @sex, title: "Distribuição Por Sexo ", download: true %>
       </div>
     </div>
     <div class="row">
       <div class="col">
-          <%= line_chart @consultsDiseasesHistory, messages: {empty: "Sem historico consultas"}, id: "consultsDiseasesHistory", download: true, title: "Histórico de Consultas por Doenças"%>
-          <!-- Quando não tem dados:
+        <%= line_chart @consultsDiseasesHistory, messages: {empty: "Sem historico consultas"}, id: "consultsDiseasesHistory", download: true, title: "Histórico de Consultas por Doenças"%>
+        <!-- Quando não tem dados:
             <div id="consultsDiseasesHistory" style="height: 300px; width: 100%; text-align: center; color: #999; line-height: 300px; font-size: 14px; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;">Sem historico consultas</div> 
           -->
       </div>
     </div>
-    
+
     <hr>
     <h3>Doenças por perfil</h3>
     <div class="row">
       <div class="col-3">
-        <%= column_chart @sexByDiseases, title: "Sexo x Doenças" %>
+        <%= column_chart @sexByDiseases, title: "Sexo x Doenças", download: true %>
       </div>
       <div class="col-9">
-        <%= column_chart @diseasesByAge, title: "Doenças x Idade", stacked:true %>
+        <%= column_chart @diseasesByAge, title: "Doenças x Idade", stacked:true, download: true %>
       </div>
     </div>
 
     <hr>
     <div class="row">
       <div class="col">
-        <h3>Consultas por período</h3>
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Data</th>
-              <th scope="col">Período</th>
-              <th scope="col">Qt. Consultas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% 
-          i = 0
-          until i >= @arrayPeriodo.length do %>
-            <tr>
-              <td rowspan="5"><%= @arrayPeriodo[i] %></td>
-              <% i+=1%>
-            <tr scope="row">
-              <td>Madrugada</td>
-              <td><%= @arrayPeriodo[i] %></td>
-              <% i+=1%>
-            </tr>
-            <tr scope="row">
-              <td>Manhã</td>
-              <td><%= @arrayPeriodo[i] %></td>
-              <% i+=1%>
-            </tr>
-            <tr scope="row">
-              <td>Tarde</td>
-              <td><%= @arrayPeriodo[i] %></td>
-              <% i+=1%>
-            </tr>
-            <tr scope="row">
-              <td>Noite</td>
-              <td><%= @arrayPeriodo[i] %></td>
-              <% i+=1%>
-            </tr>
-            </tr>
-            <% end #until%>
-          </tbody>
-        </table>
-        <h3>Total Consultas por Período</h3>
+
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content detalhes_periodo">
+
+              <h3>Consultas por período detalhados</h3>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Período</th>
+                    <th scope="col">Qt. Consultas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% 
+                  i = 0
+                  until i >= @arrayPeriodo.length do %>
+                  <tr>
+                    <td rowspan="5"><%= @arrayPeriodo[i] %></td>
+                    <% i+=1%>
+                  <tr scope="row">
+                    <td>Madrugada</td>
+                    <td><%= @arrayPeriodo[i] %></td>
+                    <% i+=1%>
+                  </tr>
+                  <tr scope="row">
+                    <td>Manhã</td>
+                    <td><%= @arrayPeriodo[i] %></td>
+                    <% i+=1%>
+                  </tr>
+                  <tr scope="row">
+                    <td>Tarde</td>
+                    <td><%= @arrayPeriodo[i] %></td>
+                    <% i+=1%>
+                  </tr>
+                  <tr scope="row">
+                    <td>Noite</td>
+                    <td><%= @arrayPeriodo[i] %></td>
+                    <% i+=1%>
+                  </tr>
+                  </tr>
+                  <% end #until%>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div> <!-- Fim Modal-->
+        <h3>Total Consultas <%= @dias %> por Período
+          <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target=".bd-example-modal-lg">Detalhes</button>
+        </h3>
         <table class="table table-bordered table-hover">
           <tr scope="row">
             <th scope="col"> Periodo</th>
@@ -120,8 +134,8 @@
             <th colspan="2" class="center">Total Consultas: <%= @total_itens %></th>
           </tr>
         </table>
-    <hr>
-    </div>
+        <hr>
+      </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
       <a href='#' onclick="window.print();" class='btn btn-dark'>Gerar PDF</a>
