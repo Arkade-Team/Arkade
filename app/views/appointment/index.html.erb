@@ -15,11 +15,15 @@
         <%= link_to "Limpar", appointments_path, class:'btn btn-danger mt-2' %>
         <% end %>
       </div>
-      <% if @daysAgo == 0 %>
-      <%= column_chart @lastFifteenDays, title: "Consultas de hoje por Gênero", download: true %>
-      <% else %>
-      <%= column_chart @lastFifteenDays, title: "Consultas Últimos #{@daysAgo} Dias por Gênero", download: true %>
-      <% end %>
+      <%
+      if @daysAgo == 0 
+        @dias = "de hoje"
+      else
+        @dias = "Ultimos #{@daysAgo} Dias"
+      end
+      %>
+      <%= column_chart @lastFifteenDays, title: "Consultas #{@dias} por Gênero", download: true %>
+      
     </div>
 
     <div class="row">
@@ -101,7 +105,7 @@
             </div>
           </div>
         </div> <!-- Fim Modal-->
-        <h3>Total Consultas dos Últimos <%= @daysAgo %> dias por Período
+        <h3>Total Consultas <%= @dias %> por Período
           <button type="button" class="btn btn-primary" data-toggle="modal"
             data-target=".bd-example-modal-lg">Detalhes</button>
         </h3>
