@@ -1,16 +1,27 @@
 class WikiController < ApplicationController
   def update
-    wiki_data = wiki_update_params
-    @wiki = Wiki.new(name: wiki_data[:name])
+    begin
+      wiki_data = wiki_update_params
 
-    if @wiki.save
-      render json: { wiki: @wiki }
+      @wiki = find_by_name_or_create(wiki_data[:name])
+
+      if @wiki.valid?
+        render json: { wiki: @wiki }
+      else
+        render json: { errors: @wiki.errors }
+      end
+    rescue => error
+      render json: error, status: 400
     end
   end
 
   private
 
+    def find_by_name_or_create(name)
+      Wiki.find_by_name(name) || Wiki.create(name: name)
+    end
+
     def wiki_update_params
-      params.require(:readingtime).permit(:wiki)
+      params.require(:readingtime).require(:wiki).permit(:name, :tabs)
     end
 end
