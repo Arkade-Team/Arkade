@@ -120,3 +120,13 @@ generate_appointments age_distribution, sex_distribution, [depressao]
 ## Appointments with multiple diseases
 
 generate_cross_disease_appointments [osteoporose, hiv, depressao]
+
+## Create Hospital
+
+hcor = Hospital.create(name: "Hcor")
+
+## Add Hospital to appointment
+
+appointmentWithHospital = Appointment.first
+appointmentWithHospital.hospital = hcor
+# appointmentWithHospital.hospital_id = hcor.id
