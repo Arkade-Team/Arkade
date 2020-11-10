@@ -1,0 +1,31 @@
+<div class="jumbotron">
+  <div class="container">
+    <h4>Dados do Médico</h4>
+    <p>
+        <strong>Id:</strong>
+        <%= @doctor.id %>
+    </p>        
+    <p>
+        <strong>CRM:</strong>
+        <%= @doctor.crm %>
+    </p>
+    <p>
+        <strong>Nome:</strong>
+        <%= @doctor.name %>
+    </p>
+    <p>
+        <strong>Especialidade:</strong>
+        <%= @doctor.specialty %>
+    </p>
+    <p>
+        <strong>Dt. Criação:</strong>
+        <%= @doctor.created_at %>
+    </p>
+    <p>
+        <strong>Dt. Alteração:</strong>
+        <%= @doctor.updated_at %>
+    </p>
+
+    <%= link_to 'Voltar', doctors_path, :class => 'btn btn-primary' %>     
+  </div>
+</div>
