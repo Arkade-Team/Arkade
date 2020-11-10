@@ -1,0 +1,43 @@
+<div class="jumbotron">
+  <div class="container">
+    <h4>Alterando Médico</h4>
+
+    <%= form_with(model: @doctor, local: true) do |form| %>   
+
+        <% if @doctor.errors.any? %>
+            <div id="error_explanation">
+                <h5>
+                    <%= pluralize(@doctor.errors.count, "erro") %> não permitiram este médico de ser salvo:
+                </h5>
+                <ul>
+                    <% @doctor.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+        <p>
+            <%= form.label :crm, 'CRM' %><br>
+            <%= form.text_field :crm %>
+        </p>
+    
+        <p>
+            <%= form.label :name, 'Nome' %><br>
+            <%= form.text_field :name %>
+        </p>
+
+        <p>
+            <%= form.label :specialty, 'Especialidade' %><br>
+            <%= form.text_field :specialty %>
+        </p>
+    
+        <p>
+            <%= link_to 'Voltar', doctors_path, :class => 'btn btn-primary' %> 
+            <%= form.submit 'Salvar', :class => 'btn btn-primary' %>
+           
+        </p>
+        
+    <% end %>
+  </div>
+</div>
