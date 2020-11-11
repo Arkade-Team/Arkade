@@ -10,5 +10,9 @@ Rails.application.routes.draw do
   post '/appointments/:appointment_id/diseases/:disease_id/actions', to: "appointment_action#create"
   get '/actions', to: "appointment_action#index"
 
+  post '/appointments/:appointment_id/diseases/:disease_id/actions', to: "appointment_action#create"
+  
+  get '/hospitals/:hospital/appointments', to: "hospitals#appointments"
+
   root "home#index"
 end

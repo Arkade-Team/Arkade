@@ -39,21 +39,6 @@ RSpec.describe "/hospitals", type: :request do
     end
   end
 
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_hospital_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "render a successful response" do
-      hospital = Hospital.create! valid_attributes
-      get edit_hospital_url(hospital)
-      expect(response).to be_successful
-    end
-  end
-
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Hospital" do
@@ -82,48 +67,4 @@ RSpec.describe "/hospitals", type: :request do
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested hospital" do
-        hospital = Hospital.create! valid_attributes
-        patch hospital_url(hospital), params: { hospital: new_attributes }
-        hospital.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the hospital" do
-        hospital = Hospital.create! valid_attributes
-        patch hospital_url(hospital), params: { hospital: new_attributes }
-        hospital.reload
-        expect(response).to redirect_to(hospital_url(hospital))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        hospital = Hospital.create! valid_attributes
-        patch hospital_url(hospital), params: { hospital: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested hospital" do
-      hospital = Hospital.create! valid_attributes
-      expect {
-        delete hospital_url(hospital)
-      }.to change(Hospital, :count).by(-1)
-    end
-
-    it "redirects to the hospitals list" do
-      hospital = Hospital.create! valid_attributes
-      delete hospital_url(hospital)
-      expect(response).to redirect_to(hospitals_url)
-    end
-  end
 end
