@@ -4,3 +4,10 @@ exclude_patterns:
 - "db/migrate/"
 - "doc/js/"
 - "babel.config.js"
+plugins:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        ruby:
+          mass_threshold: 28
