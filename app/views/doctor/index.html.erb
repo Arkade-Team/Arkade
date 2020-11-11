@@ -1,0 +1,36 @@
+<div class="jumbotron">
+  <div class="container">
+    <h4>Médicos (Total de Médicos: <%= @doctors.count %>)</h4>
+    <%= link_to 'Novo médico', new_doctor_path, :class => 'btn btn-primary' %> 
+    <div class="row">
+      <div class="col">
+        <%= column_chart @doctors.group(:specialty).count, title: "Médicos por Especialidade" %>
+      </div>
+    </div>
+    <br><br>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">CRM</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Especialidade</th>
+            <th scope="col" colspan='2'></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @doctors.each do |doctor| %>
+            <tr>
+                <th scope="row"><%= doctor.id %></th>
+                <td><%= doctor.crm %></td>
+                <td><%= doctor.name %></td>
+                <td><%= doctor.specialty %></td>
+                <td><%= link_to "Dados", doctor_path(doctor) %></td>
+                <td><%= link_to "Alterar", edit_doctor_path(doctor) %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>    
+
+  </div>
+</div>
