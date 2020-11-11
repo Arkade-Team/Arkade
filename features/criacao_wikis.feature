@@ -14,4 +14,4 @@ Funcionalidade: Cadastro de Wiki
   Cenário: visualização de wiki
     Dado o usuário na página principal da aplicação
     Quando o cliente clica em "Wikis"
-    Então ele visualiza uma tabela contendo os nomes das wikis registradas
+    Então ele visualiza uma tabela contendo os nomes e as contagens de leitura das wikis registradas

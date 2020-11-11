@@ -29,6 +29,7 @@ Dado "o usuário na página principal da aplicação" do
   visit "/"
 end
 
-Então "ele visualiza uma tabela contendo os nomes das wikis registradas" do
+Então "ele visualiza uma tabela contendo os nomes e as contagens de leitura das wikis registradas" do
   page.should have_selector "th[data-ccb=name]"
+  page.should have_selector "th[data-ccb=count]"
 end
