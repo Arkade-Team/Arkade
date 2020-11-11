@@ -23,4 +23,25 @@ RSpec.describe Wiki, type: :model do
 
     expect(@wiki).not_to be_valid
   end
+
+  describe "with_readings_of" do
+    before(:each) do
+      @wiki.name = "Test"
+      @wiki.save
+      @wiki.readingtimes << Readingtime.create
+    end
+
+    it "returns the wiki with a list of its readings" do
+      wiki = Wiki.with_readings_of(@wiki.id)
+
+      expect(wiki[:readings]).not_to be_nil
+      expect(wiki[:readings].size).to be(1)
+    end
+
+    it "returns nil if no ID is found" do
+      wiki = Wiki.with_readings_of(420)
+
+      expect(wiki).to be_nil
+    end
+  end
 end
