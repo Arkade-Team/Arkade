@@ -42,4 +42,22 @@ RSpec.describe "Wikis", type: :request do
     end
   end
 
+  describe "GET /wikis" do
+    before(:each) do
+      Wiki.create(name: "Wiki teste 1")
+      Wiki.create(name: "Wiki teste 2")
+    end
+
+    it "GET /wikis render the proper view" do
+      get '/wikis'
+      expect(response).to render_template('index')
+    end
+
+    it "fetches all wikis to the view" do
+      expect(Wiki).to receive(:all)
+      get "/wikis"
+    end
+
+  end
+
 end
