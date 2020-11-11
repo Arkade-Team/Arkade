@@ -1,4 +1,7 @@
 class WikiController < ApplicationController
+  def index
+  end
+
   def update
     begin
       wiki_data = wiki_update_params
