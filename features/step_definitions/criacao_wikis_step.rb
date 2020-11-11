@@ -20,6 +20,10 @@ Então "a resposta deve conter o registro da Wiki {string}" do |name|
   last_json.should have_json_path("wiki")
 end
 
+Então "a resposta deve conter um contagem de leitura igual a 1" do
+  last_json.should have_json_size(1).at_path("wiki/readings")
+end
+
 
 Dado "o usuário na página principal da aplicação" do
   visit "/"

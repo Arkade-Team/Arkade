@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_204930) do
+ActiveRecord::Schema.define(version: 2020_11_11_203919) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,10 +45,18 @@ ActiveRecord::Schema.define(version: 2020_11_10_204930) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "readingtimes", force: :cascade do |t|
+    t.bigint "wiki_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["wiki_id"], name: "index_readingtimes_on_wiki_id"
+  end
+
   create_table "wikis", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "readingtimes", "wikis"
 end

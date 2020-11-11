@@ -12,12 +12,13 @@ RSpec.describe "Wikis", type: :request do
       expect(response).not_to have_http_status(:success)
     end
 
-    it "returns a wiki register when the name is provided" do
+    it "returns a wiki register when the name is provided with its readings" do
       put '/wikis', params: { readingtime: { wiki: { name: "Foo" } } }
 
       resp = JSON.parse(response.body)
 
       expect(resp["wiki"]).not_to be_nil
+      expect(resp["wiki"]["readings"]).not_to be_nil
     end
 
     it "returns a wiki register when a repeated name is provided" do
@@ -57,7 +58,6 @@ RSpec.describe "Wikis", type: :request do
       expect(Wiki).to receive(:all)
       get "/wikis"
     end
-
   end
 
 end
