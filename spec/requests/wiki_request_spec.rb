@@ -30,6 +30,16 @@ RSpec.describe "Wikis", type: :request do
 
       expect(resp["wiki"]).not_to be_nil
     end
+
+    it "fails when wiki information is invalid" do
+      too_short_name = "" 
+
+      put '/wikis', params: { readingtime: { wiki: { name: too_short_name } } }
+
+      resp = JSON.parse(response.body)
+
+      expect(resp["wiki"]).to be_nil
+    end
   end
 
 end
