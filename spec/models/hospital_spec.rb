@@ -18,7 +18,7 @@ RSpec.describe Hospital, type: :model do
     appointment = Appointment.new
     appointment.age = 42
     appointment.sex = " MALE "
-    appointment.hospital << @hospital
+    appointment.hospital = @hospital
     appointment.save
 
     expect(@hospital.appointments.count).to eq(1)

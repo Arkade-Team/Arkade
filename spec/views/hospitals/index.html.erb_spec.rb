@@ -14,6 +14,7 @@ RSpec.describe "hospitals/index", type: :view do
 
   it "renders a list of hospitals" do
     render
-    assert_select "tr>td", text: "Name".to_s, count: 2
+    assert_select "tr>td", text: "Nome".to_s, count: 1
+    assert_select "row", count: 1
   end
 end

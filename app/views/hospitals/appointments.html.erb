@@ -1,0 +1,27 @@
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col">
+        <h3><%= @hospital.name %></h3>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">identificador</th>
+              <th scope="col">Idade</th>
+              <th scope="col">Sexo</th>
+            </tr>
+          </thead>
+        <tbody>
+
+        <% @hospital.appointments.each do |appointment| %>
+          <tr scope="row">
+            <td> <%= appointment.id %> </td> 
+            <td> <%= appointment.age %> </td> 
+            <td> <%= appointment.sex %> </td> 
+          </tr>
+        <% end %>
+
+        </tbody>
+        </table>
+    </div>
+    </div>
+  </div>

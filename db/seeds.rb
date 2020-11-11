@@ -124,9 +124,10 @@ generate_cross_disease_appointments [osteoporose, hiv, depressao]
 ## Create Hospital
 
 hcor = Hospital.create(name: "Hcor")
+monteSinai = Hospital.create(name: "Monte Sinai")
 
 ## Add Hospital to appointment
 
-appointmentWithHospital = Appointment.first
-appointmentWithHospital.hospital = hcor
-# appointmentWithHospital.hospital_id = hcor.id
+Appointment.create(age: 34, sex: "male", hospital: hcor)
+Appointment.create(age: 39, sex: "male", hospital: hcor)
+Appointment.create(age: 69, sex: "female", hospital: monteSinai)
