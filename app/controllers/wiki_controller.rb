@@ -10,12 +10,7 @@ class WikiController < ApplicationController
       @wiki = find_by_name_or_create(wiki_data[:name])
 
       if @wiki.valid?
-        @wiki.readingtimes << Readingtime.create
-        wiki = {
-          name: @wiki.name,
-          readings: @wiki.readingtimes
-        }
-        render json: { wiki: wiki }
+        render json: { wiki: Wiki.with_readings_of(@wiki.id) }
       else
         render json: { errors: @wiki.errors }
       end
