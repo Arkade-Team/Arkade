@@ -4,17 +4,16 @@
   end
   
   Quando('o coordenador acessar a página de hospitais') do
-    visit '/hospitais'
+    Appointment.delete_all
+    Hospital.delete_all
+    @appointment = Appointment.create sex: "female", age: 55
+    @hcor = Hospital.create(name: "Hcor")
+    @appointment.hospital = @Hcor
+    @appointment.save
+
+    visit '/hospitals'
   end
   
   Então('deverá ver uma lista de hospitais cadastrados') do
-    last_json.should have_json_path("id")
-  end
-
-  Quando('clicar no hospital {string}') do |button|
-    click_link button
-  end
-  
-  Então('deverá ver uma lista de agendamentos realizados') do
-    last_json.should have_json_path("id")
+    last_json.should have_json_path("name")
   end

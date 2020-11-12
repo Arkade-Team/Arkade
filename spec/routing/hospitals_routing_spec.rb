@@ -13,26 +13,13 @@ RSpec.describe HospitalsController, type: :routing do
     it "routes to #show" do
       expect(get: "/hospitals/1").to route_to("hospitals#show", id: "1")
     end
-
-    it "routes to #edit" do
-      expect(get: "/hospitals/1/edit").to route_to("hospitals#edit", id: "1")
+    
+    it "routes to appointments" do
+      expect(get: "/hospitals/1/appointments").to route_to("hospitals#appointments", hospital: "1")
     end
-
 
     it "routes to #create" do
       expect(post: "/hospitals").to route_to("hospitals#create")
-    end
-
-    it "routes to #update via PUT" do
-      expect(put: "/hospitals/1").to route_to("hospitals#update", id: "1")
-    end
-
-    it "routes to #update via PATCH" do
-      expect(patch: "/hospitals/1").to route_to("hospitals#update", id: "1")
-    end
-
-    it "routes to #destroy" do
-      expect(delete: "/hospitals/1").to route_to("hospitals#destroy", id: "1")
     end
   end
 end
