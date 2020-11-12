@@ -15,9 +15,13 @@ RSpec.describe "AppointmentActions", type: :request do
         it "creates a new AppointmentAction" do
             
             app = Appointment.create sex: "male", age: 42
-            hiv = Disease.create name: "HIV"
-            
+
+            hiv = Disease.create name: "HIV" 
             app.diseases << hiv
+
+            hcor = Hospital.create(name: 'Hcor')
+            app.hospital = hcor
+            app.save
 
             post "/appointments/#{app.id}/diseases/#{hiv.id}/actions",
             params: { name: "FRAX", result: "Completo"}
@@ -30,9 +34,14 @@ RSpec.describe "AppointmentActions", type: :request do
         it "should fail creating a new AppointmentAction" do
             
             app = Appointment.create sex: "male", age: 99
+
             hiv = Disease.create name: "HIV+"
-            
             app.diseases << hiv
+
+            hcor = Hospital.create(name: 'Hcor')
+            app.hospital = hcor
+            
+            app.save
 
             post "/appointments/#{app.id}/diseases/#{hiv.id}/actions"
 

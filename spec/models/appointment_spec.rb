@@ -21,6 +21,9 @@ RSpec.describe Appointment, type: :model do
     @appointment.age = "quarenta e dois"
     @appointment.sex = "female"
 
+    hcor = Hospital.create(name: 'Hcor')
+    @appointment.hospital = hcor
+
     expect(@appointment).not_to be_valid
   end
 
@@ -35,12 +38,18 @@ RSpec.describe Appointment, type: :model do
     @appointment.age = 42
     @appointment.sex = " MALE "
 
+    hcor = Hospital.create(name: 'Hcor')
+    @appointment.hospital = hcor
+
     expect(@appointment).to be_valid
   end
-  
+
   it "accepts ' FEMALE ' as a valid sex" do
     @appointment.age = 37
     @appointment.sex = " FEMALE "
+
+    hcor = Hospital.create(name: 'Hcor')
+    @appointment.hospital = hcor
 
     expect(@appointment).to be_valid
   end
