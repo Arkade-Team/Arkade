@@ -2,6 +2,11 @@ class AppointmentController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index 
+    @age_distribution = Appointment.group(:age).count
+
+    @sex_per_last_period = sex_per_last_period
+    @sex_per_last_period_title = sex_per_last_period_title
+
     @appointments = Appointment.all
     @daysAgo = params[:days].present? ? params[:days].to_i.abs : 0
     @fifteenDaysAgo = @daysAgo != 0? (Time.now - (@daysAgo * 24 * 60 * 60)) : (Date.today - (@daysAgo * 24 * 60 * 60))
@@ -13,8 +18,6 @@ class AppointmentController < ApplicationController
     @sexByDiseases = Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
     ConsultarPeriodo()
     @consultsDiseasesHistory = Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", @fifteenDaysAgo.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
-
-    @age_distribution = Appointment.group(:age).count
   end
 
   def regraPeriodoCase
@@ -91,5 +94,19 @@ class AppointmentController < ApplicationController
   private
     def appointment_params
       params.require(:appointment).permit(:age, :sex)
+    end
+
+    def sex_per_last_period
+      @last_period_length = params[:days].present? ? params[:days].to_i.abs : 0
+      beginning_of_period = @last_period_length != 0? (Time.now - (@last_period_length * 24 * 60 * 60)) : (Date.today - (@last_period_length * 24 * 60 * 60))
+      Appointment.where("created_at >= ? and created_at <= ?", beginning_of_period.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
+    end
+
+    def sex_per_last_period_title
+      if @last_period_length == 0
+        "do último dia"
+      else
+        "dos últimos #{@last_period_length} dias"
+      end
     end
 end
