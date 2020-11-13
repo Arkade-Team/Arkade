@@ -13,6 +13,8 @@ class AppointmentController < ApplicationController
     @sexByDiseases = Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
     ConsultarPeriodo()
     @consultsDiseasesHistory = Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", @fifteenDaysAgo.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
+
+    @age_distribution = Appointment.group(:age).count
   end
 
   def regraPeriodoCase

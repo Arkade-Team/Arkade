@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe "Appointments", type: :request do
 
   describe "GET /appointments" do
+    before(:each) do
+      get "/appointments"
+    end
+
     [
       "index",
       "_age_distribution",
@@ -15,9 +19,15 @@ RSpec.describe "Appointments", type: :request do
       "_generate_pdf"
     ].each do |tpl|
       it "renders #{tpl} templates" do
-        get "/appointments"
-
         expect(response).to render_template(tpl)
+      end
+    end
+
+    [
+      :age_distribution
+    ].each do |var|
+      it "assigns #{var}" do
+        expect(assigns(var)).to be_a(Hash)
       end
     end
   end
