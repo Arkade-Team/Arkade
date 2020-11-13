@@ -2,4 +2,24 @@ require 'rails_helper'
 
 RSpec.describe "Appointments", type: :request do
 
+  describe "GET /appointments" do
+    [
+      "index",
+      "_age_distribution",
+      "_day_filter_form",
+      "_appointment_per_sex_last_period",
+      "_sex_distribution",
+      "_appointments_per_disease",
+      "_diseases_per_profile",
+      "_appointments_per_period",
+      "_generate_pdf"
+    ].each do |tpl|
+      it "renders #{tpl} templates" do
+        get "/appointments"
+
+        expect(response).to render_template(tpl)
+      end
+    end
+  end
+
 end

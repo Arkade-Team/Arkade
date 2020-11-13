@@ -1,0 +1,8 @@
+<%
+  if @daysAgo == 0 
+    @dias = "de hoje"
+  else
+    @dias = "Ultimos #{@daysAgo} Dias"
+  end
+%>
+<%= column_chart @lastFifteenDays, title: "Consultas #{@dias} por Gênero", download: true %>

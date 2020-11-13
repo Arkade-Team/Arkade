@@ -1,0 +1,80 @@
+<div>
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content detalhes_periodo">
+
+        <h3>Consultas por período detalhados</h3>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Data</th>
+              <th scope="col">Período</th>
+              <th scope="col">Qt. Consultas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% 
+            i = 0
+            until i >= @arrayPeriodo.length do %>
+            <tr>
+              <td rowspan="5"><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
+            <tr scope="row">
+              <td>Madrugada</td>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
+            </tr>
+            <tr scope="row">
+              <td>Manhã</td>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
+            </tr>
+            <tr scope="row">
+              <td>Tarde</td>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
+            </tr>
+            <tr scope="row">
+              <td>Noite</td>
+              <td><%= @arrayPeriodo[i] %></td>
+              <% i+=1%>
+            </tr>
+            </tr>
+            <% end #until%>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div> <!-- Fim Modal-->
+  <h3>Total Consultas <%= @dias %> por Período
+    <button type="button" class="btn btn-primary" data-toggle="modal"
+      data-target=".bd-example-modal-lg">Detalhes</button>
+  </h3>
+  <table class="table table-bordered table-hover">
+    <tr scope="row">
+      <th scope="col"> Periodo</th>
+      <th scope="col">Qtd Consultas</th>
+    </tr>
+    <tr scope="row">
+      <td>Madrugada</td>
+      <td><%= @total_madrugada %></td>
+    </tr>
+    <tr scope="row">
+      <td>Manhã</td>
+      <td><%= @total_manha %></td>
+    </tr>
+    <tr scope="row">
+      <td>Tarde</td>
+      <td><%= @total_tarde %></td>
+    </tr>
+    <tr scope="row">
+      <td>Noite</td>
+      <td><%= @total_noite %></td>
+    </tr>
+    <tr scope="row">
+      <th colspan="2" class="center">Total Consultas: <%= @total_itens %></th>
+    </tr>
+  </table>
+</div>
