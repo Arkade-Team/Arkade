@@ -7,17 +7,14 @@ Quando "recebo uma requisição de leitura da Wiki {string}" do |name|
     readingtime: {
       wiki: {
         name: name,
-        tabs: [
-          { name: "Foo", body: "Foo body foo" },
-          { name: "Baz", body: "Baz body foo" }
-        ]
       }
     }
   }
 end
 
 Então "a resposta deve conter o registro da Wiki {string}" do |name|
-  last_json.should have_json_path("wiki")
+  the_json = %({ "wiki": { "name": "#{name}" } })
+  last_json.should be_json_eql(the_json).excluding("readings")
 end
 
 Então "a resposta deve conter um contagem de leitura igual a 1" do
