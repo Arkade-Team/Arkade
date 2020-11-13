@@ -28,14 +28,14 @@ RSpec.describe Wiki, type: :model do
     before(:each) do
       @wiki.name = "Test"
       @wiki.save
-      @wiki.readingtimes << Readingtime.create
+      @wiki.readingtimes << Readingtime.create << Readingtime.create
     end
 
     it "returns the wiki with a list of its readings" do
       wiki = Wiki.with_readings_of(@wiki.id)
 
       expect(wiki[:readings]).not_to be_nil
-      expect(wiki[:readings].size).to be(1)
+      expect(wiki[:readings].size).to be(2)
     end
 
     it "returns nil if no ID is found" do

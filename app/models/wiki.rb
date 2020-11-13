@@ -14,7 +14,7 @@ class Wiki < ApplicationRecord
 
     {
       name: wiki.name,
-      readings: [1]
+      readings: wiki.readingtimes
     }
   end
 end
