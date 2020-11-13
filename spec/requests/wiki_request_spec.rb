@@ -55,7 +55,7 @@ RSpec.describe "Wikis", type: :request do
     end
 
     it "fetches all wikis to the view" do
-      expect(Wiki).to receive(:all)
+      expect(Wiki).to receive(:all) { [] }
       get "/wikis"
     end
   end
