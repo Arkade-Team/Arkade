@@ -19,6 +19,7 @@ RSpec.describe "Wikis", type: :request do
 
       expect(resp["wiki"]).not_to be_nil
       expect(resp["wiki"]["readings"]).not_to be_nil
+      expect(resp["wiki"]["readings"].size).to be > 0
     end
 
     it "returns a wiki register when a repeated name is provided" do
