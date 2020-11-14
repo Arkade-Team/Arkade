@@ -48,6 +48,13 @@ RSpec.describe "Appointments", type: :request do
         mocked: {
           ["male", 3.days.ago.to_date] => 1,
           ["female", 2.days.ago.to_date] => 1,
+        },
+      },
+      {
+        name: :appointments_per_disease,
+        mocked: {
+          ["Osteoporose", 2.days.ago.to_date] => 2,
+          ["Depressão", 2.days.ago.to_date] => 1,
         }
       }
     ].each do |scene|

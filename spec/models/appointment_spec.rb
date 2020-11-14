@@ -93,6 +93,7 @@ RSpec.describe Appointment, type: :model do
       it "requires a date parameter prior to tomorrow" do
         expect { Appointment.sex_per_last_period }.to raise_error(ArgumentError)
         expect { Appointment.sex_per_last_period((Time.now + 2.days)) }.to raise_error(ArgumentError)
+
         expect { Appointment.sex_per_last_period(Time.now) }.not_to raise_error
       end
 
@@ -114,6 +115,36 @@ RSpec.describe Appointment, type: :model do
         ])
 
         expect(Appointment.sex_per_last_period(@valid_period_date)).to eql(the_counts)
+      end
+    end
+
+    describe "appointments_per_disease" do
+      it "is defined" do
+        expect(Appointment).to respond_to(:appointments_per_disease)
+      end
+
+      it "requires a date parameter prior to tomorrow" do
+        expect { Appointment.appointments_per_disease }.to raise_error(ArgumentError)
+        expect { Appointment.appointments_per_disease((Time.now + 2.days)) }.to raise_error(ArgumentError)
+
+        expect { Appointment.appointments_per_disease(Time.now) }.not_to raise_error
+      end
+
+      it "returns an empty hash when there is no data" do
+        expect(Appointment.appointments_per_disease(@valid_period_date)).to eql({})
+      end
+
+      it "returns the correct counts when there is data" do
+        osteo = "Osteoporose"
+        day = 2.days.ago
+
+        the_counts = { [osteo, day.to_date] => 1 }
+
+        Disease.delete_all
+        app = Appointment.create(sex: "female", age: 64, created_at: day)
+        app.diseases << Disease.create(name: osteo)
+
+        expect(Appointment.appointments_per_disease(@valid_period_date)).to eql(the_counts)
       end
     end
   end

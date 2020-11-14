@@ -8,7 +8,7 @@ class AppointmentController < ApplicationController
     @sex_per_last_period = Appointment.sex_per_last_period @beginning_of_period
     @sex_per_last_period_title = sex_per_last_period_title
 
-    @appointments_per_disease = appointments_per_disease
+    @appointments_per_disease = Appointment.appointments_per_disease @beginning_of_period
 
     @diseases_per_age = diseases_per_age
     @sex_per_diseases = sex_per_diseases
@@ -100,10 +100,6 @@ class AppointmentController < ApplicationController
     def set_period
       @last_period_length = params[:days].present? ? params[:days].to_i.abs : 0
       @beginning_of_period = @last_period_length != 0? (Time.now - (@last_period_length * 24 * 60 * 60)) : (Date.today - (@last_period_length * 24 * 60 * 60))
-    end
-
-    def appointments_per_disease
-      Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", @beginning_of_period.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
     end
 
     def sex_per_last_period_title

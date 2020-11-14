@@ -28,6 +28,13 @@ class Appointment < ApplicationRecord
 
       Appointment.where("created_at >= ? and created_at <= ?", beginning_of_period.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
     end
+
+    def appointments_per_disease(beginning_of_period)
+      err = ArgumentError.new "parameter must be a date prior to tomorrow"
+      raise err if beginning_of_period > (Time.now + 1.day).beginning_of_day
+
+      Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", beginning_of_period.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
+    end
   end
 
   private
