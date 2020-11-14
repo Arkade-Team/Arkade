@@ -35,6 +35,10 @@ class Appointment < ApplicationRecord
 
       Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", beginning_of_period.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
     end
+
+    def diseases_per_age
+      Appointment.joins(:diseases).group('diseases.name').group('appointments.age').count
+    end
   end
 
   private

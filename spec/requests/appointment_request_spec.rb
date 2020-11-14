@@ -56,6 +56,13 @@ RSpec.describe "Appointments", type: :request do
           ["Osteoporose", 2.days.ago.to_date] => 2,
           ["Depressão", 2.days.ago.to_date] => 1,
         }
+      },
+      {
+        name: :diseases_per_age,
+        mocked: {
+          ["Osteoporose", 77] => 2,
+          ["Depressão", 41] => 6,
+        }
       }
     ].each do |scene|
       it "calls Appointment##{scene[:name]} and assigns to @#{scene[:name]}" do

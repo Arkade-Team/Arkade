@@ -10,7 +10,7 @@ class AppointmentController < ApplicationController
 
     @appointments_per_disease = Appointment.appointments_per_disease @beginning_of_period
 
-    @diseases_per_age = diseases_per_age
+    @diseases_per_age = Appointment.diseases_per_age
     @sex_per_diseases = sex_per_diseases
 
     @sex_distribution = sex_distribution
@@ -108,10 +108,6 @@ class AppointmentController < ApplicationController
       else
         "dos últimos #{@last_period_length} dias"
       end
-    end
-
-    def diseases_per_age
-      Appointment.joins(:diseases).group('diseases.name').group('appointments.age').count
     end
 
     def sex_per_diseases
