@@ -13,7 +13,7 @@ class AppointmentController < ApplicationController
     @diseases_per_age = Appointment.diseases_per_age
     @sex_per_diseases = Appointment.sex_per_diseases
 
-    @sex_distribution = sex_distribution
+    @sex_distribution = Appointment.sex_distribution
 
 
     ConsultarPeriodo()
@@ -108,9 +108,5 @@ class AppointmentController < ApplicationController
       else
         "dos últimos #{@last_period_length} dias"
       end
-    end
-
-    def sex_distribution
-      Appointment.group('sex').order('sex').count
     end
 end

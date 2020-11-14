@@ -237,5 +237,34 @@ RSpec.describe Appointment, type: :model do
         expect(Appointment.sex_per_diseases).to eql(the_counts)
       end
     end
+
+    describe "sex_distribution" do
+      it "is defined" do
+        expect(Appointment).to respond_to(:sex_distribution)
+      end
+
+      it "returns an empty hash when there is no data" do
+        expect(Appointment.sex_distribution).to eql({})
+      end
+
+      it "returns the correct counts when there is data" do
+        the_counts = {
+          "male" => 4,
+          "female" => 3
+        }
+
+        Appointment.create([
+          { sex: "male", age: (20..70).to_a.sample },
+          { sex: "male", age: (20..70).to_a.sample },
+          { sex: "male", age: (20..70).to_a.sample },
+          { sex: "male", age: (20..70).to_a.sample },
+          { sex: "female", age: (20..70).to_a.sample },
+          { sex: "female", age: (20..70).to_a.sample },
+          { sex: "female", age: (20..70).to_a.sample },
+        ])
+
+        expect(Appointment.sex_distribution).to eql(the_counts)
+      end
+    end
   end
 end

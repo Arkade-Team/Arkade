@@ -70,6 +70,13 @@ RSpec.describe "Appointments", type: :request do
           ["male", "Depressão"] => 2,
           ["female", "Osteoporose"] => 1
         }
+      },
+      {
+        name: :sex_distribution,
+        mocked: {
+          "male" => 4,
+          "female" => 3
+        }
       }
     ].each do |scene|
       it "calls Appointment##{scene[:name]} and assigns to @#{scene[:name]}" do

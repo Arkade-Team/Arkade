@@ -43,6 +43,10 @@ class Appointment < ApplicationRecord
     def sex_per_diseases
       Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
     end
+
+    def sex_distribution
+      Appointment.group('sex').order('sex').count
+    end
   end
 
   private
