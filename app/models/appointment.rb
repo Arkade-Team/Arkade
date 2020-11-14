@@ -13,12 +13,21 @@ class Appointment < ApplicationRecord
 
   before_validation :format_params
 
-  def self.with_diseases_at_least(n)
-    Appointment.joins(:diseases).group("appointments.id").having("count(appointments_diseases.appointment_id) >= ?", [n])
-  end
+  class << self
+    def with_diseases_at_least(n)
+      Appointment.joins(:diseases).group("appointments.id").having("count(appointments_diseases.appointment_id) >= ?", [n])
+    end
 
-  def self.age_distribution
-    Appointment.group(:age).count
+    def age_distribution
+      Appointment.group(:age).count
+    end
+
+    def sex_per_last_period(beginning_of_period)
+      err = ArgumentError.new "parameter must be a date prior to tomorrow"
+      raise err if beginning_of_period > (Time.now + 1.day).beginning_of_day
+
+      Appointment.where("created_at >= ? and created_at <= ?", beginning_of_period.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
+    end
   end
 
   private

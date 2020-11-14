@@ -38,14 +38,26 @@ RSpec.describe "Appointments", type: :request do
       end
     end
 
-    it "calls Appointment#age_distribution and assigns to @age_distribution" do
-      mocked_hash = { 40 => 1 }
+    [
+      {
+        name: :age_distribution,
+        mocked: { 40 => 1 }
+      },
+      {
+        name: :sex_per_last_period,
+        mocked: {
+          ["male", 3.days.ago.to_date] => 1,
+          ["female", 2.days.ago.to_date] => 1,
+        }
+      }
+    ].each do |scene|
+      it "calls Appointment##{scene[:name]} and assigns to @#{scene[:name]}" do
+        expect(Appointment).to receive(scene[:name]) { scene[:mocked] }
 
-      expect(Appointment).to receive(:age_distribution) { mocked_hash }
+        get "/appointments"
 
-      get "/appointments"
-
-      expect(assigns(:age_distribution)).to eql(mocked_hash) 
+        expect(assigns(scene[:name])).to eql(scene[:mocked]) 
+      end
     end
   end
 

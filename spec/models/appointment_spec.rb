@@ -48,11 +48,12 @@ RSpec.describe Appointment, type: :model do
   end
 
   describe "query methods" do
-    describe "age_distribution" do
-      before(:each) do
-        Appointment.delete_all
-      end
+    before(:each) do
+      Appointment.delete_all
+      @valid_period_date = 4.days.ago
+    end
 
+    describe "age_distribution" do
       it "is defined" do
         expect(Appointment).to respond_to(:age_distribution)
       end
@@ -81,6 +82,38 @@ RSpec.describe Appointment, type: :model do
         ])
 
         expect(Appointment.age_distribution).to eql({ 40 => 2, 45 => 1 })
+      end
+    end
+
+    describe "sex_per_last_period" do
+      it "is defined" do
+        expect(Appointment).to respond_to(:sex_per_last_period)
+      end
+
+      it "requires a date parameter prior to tomorrow" do
+        expect { Appointment.sex_per_last_period }.to raise_error(ArgumentError)
+        expect { Appointment.sex_per_last_period((Time.now + 2.days)) }.to raise_error(ArgumentError)
+        expect { Appointment.sex_per_last_period(Time.now) }.not_to raise_error
+      end
+
+      it "returns an empty hash when no data is present" do
+        expect(Appointment.sex_per_last_period(@valid_period_date)).to eql({})
+      end
+
+      it "return correct counts when there is data" do
+        the_counts = {
+          ["male", 3.days.ago.to_date] => 1,
+          ["female", 3.days.ago.to_date] => 1,
+          ["female", 2.days.ago.to_date] => 1,
+        }
+
+        Appointment.create([
+          { sex: "male", age: 40, created_at: 3.days.ago },
+          { sex: "female", age: 62, created_at: 3.days.ago },
+          { sex: "female", age: 37, created_at: 2.days.ago },
+        ])
+
+        expect(Appointment.sex_per_last_period(@valid_period_date)).to eql(the_counts)
       end
     end
   end
