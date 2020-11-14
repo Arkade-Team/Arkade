@@ -27,6 +27,7 @@ RSpec.describe "Appointments", type: :request do
       age_distribution: Hash,
       sex_per_last_period: Hash,
       sex_per_last_period_title: String,
+      appointments_per_disease: Hash,
     }.each_pair do |var, type|
       it "assigns #{var}" do
         expect(assigns(var)).to be_a(type)
