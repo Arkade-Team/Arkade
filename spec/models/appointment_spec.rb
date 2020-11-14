@@ -192,5 +192,50 @@ RSpec.describe Appointment, type: :model do
         expect(Appointment.diseases_per_age).to eql(the_counts)
       end
     end
+
+    describe "sex_per_diseases" do
+      it "is defined" do
+        expect(Appointment).to respond_to(:sex_per_diseases)
+      end
+
+      it "returns an empty hash when there is no data" do
+        expect(Appointment.sex_per_diseases).to eql({})
+      end
+
+      it "return the correct counts when there is data" do
+        osteo = "Osteoporose"
+        depre = "Depressão"
+        
+        Disease.delete_all
+        d_osteo = Disease.create(name: osteo)
+        d_depre = Disease.create(name: depre)
+
+        app = Appointment.create( age: 64, sex: "female" )
+        app.diseases << d_osteo << d_depre
+
+        app = Appointment.create( age: 64, sex: "female" )
+        app.diseases << d_osteo
+
+        app = Appointment.create( age: 42, sex: "male" )
+        app.diseases << d_depre
+
+        app = Appointment.create( age: 42, sex: "female" )
+        app.diseases << d_depre
+
+        app = Appointment.create( age: 42, sex: "male" )
+        app.diseases << d_depre
+
+        app = Appointment.create( age: 42, sex: "female" )
+        app.diseases << d_depre
+
+        the_counts = {
+          ["female", osteo] => 2,
+          ["female", depre] => 3,
+          ["male", depre] => 2,
+        }
+
+        expect(Appointment.sex_per_diseases).to eql(the_counts)
+      end
+    end
   end
 end
