@@ -13,12 +13,11 @@ class AppointmentController < ApplicationController
     @diseases_per_age = diseases_per_age
     @sex_per_diseases = sex_per_diseases
 
+    @sex_distribution = sex_distribution
+
     @lastFifteenDays = Appointment.where("created_at >= ? and created_at <= ?", @beginning_of_period.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
-    @sex = Appointment.group('sex').order('sex').count
     @lastFifteenDaysPeriodo = Appointment.where("created_at >= ? and created_at <= ?", @beginning_of_period.beginning_of_day, Time.now).order('date(created_at)')
 
-    @diseasesByAge = Appointment.joins(:diseases).group('diseases.name').group('appointments.age').count
-    @sexByDiseases = Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
     ConsultarPeriodo()
     @consultsDiseasesHistory = Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", @beginning_of_period.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
   end
@@ -126,5 +125,9 @@ class AppointmentController < ApplicationController
 
     def sex_per_diseases
       Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
+    end
+
+    def sex_distribution
+      Appointment.group('sex').order('sex').count
     end
 end
