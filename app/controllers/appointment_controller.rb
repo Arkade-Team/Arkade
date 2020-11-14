@@ -3,7 +3,7 @@ class AppointmentController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index 
-    @age_distribution = Appointment.group(:age).count
+    @age_distribution = Appointment.age_distribution
 
     @sex_per_last_period = sex_per_last_period
     @sex_per_last_period_title = sex_per_last_period_title

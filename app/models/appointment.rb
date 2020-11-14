@@ -17,6 +17,10 @@ class Appointment < ApplicationRecord
     Appointment.joins(:diseases).group("appointments.id").having("count(appointments_diseases.appointment_id) >= ?", [n])
   end
 
+  def self.age_distribution
+    Appointment.group(:age).count
+  end
+
   private
     def format_params
       self.sex = sex.downcase.strip unless sex.nil?
