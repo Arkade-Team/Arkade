@@ -28,6 +28,8 @@ RSpec.describe "Appointments", type: :request do
       sex_per_last_period: Hash,
       sex_per_last_period_title: String,
       appointments_per_disease: Hash,
+      diseases_per_age: Hash,
+      sex_per_diseases: Hash,
     }.each_pair do |var, type|
       it "assigns #{var}" do
         expect(assigns(var)).to be_a(type)

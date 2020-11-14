@@ -10,6 +10,9 @@ class AppointmentController < ApplicationController
 
     @appointments_per_disease = appointments_per_disease
 
+    @diseases_per_age = diseases_per_age
+    @sex_per_diseases = sex_per_diseases
+
     @lastFifteenDays = Appointment.where("created_at >= ? and created_at <= ?", @beginning_of_period.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
     @sex = Appointment.group('sex').order('sex').count
     @lastFifteenDaysPeriodo = Appointment.where("created_at >= ? and created_at <= ?", @beginning_of_period.beginning_of_day, Time.now).order('date(created_at)')
@@ -115,5 +118,13 @@ class AppointmentController < ApplicationController
       else
         "dos últimos #{@last_period_length} dias"
       end
+    end
+
+    def diseases_per_age
+      Appointment.joins(:diseases).group('diseases.name').group('appointments.age').count
+    end
+
+    def sex_per_diseases
+      Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
     end
 end
