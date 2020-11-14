@@ -15,11 +15,8 @@ class AppointmentController < ApplicationController
 
     @sex_distribution = sex_distribution
 
-    @lastFifteenDays = Appointment.where("created_at >= ? and created_at <= ?", @beginning_of_period.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
-    @lastFifteenDaysPeriodo = Appointment.where("created_at >= ? and created_at <= ?", @beginning_of_period.beginning_of_day, Time.now).order('date(created_at)')
 
     ConsultarPeriodo()
-    @consultsDiseasesHistory = Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", @beginning_of_period.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
   end
 
   def regraPeriodoCase
@@ -67,7 +64,9 @@ class AppointmentController < ApplicationController
     @consulta_antiga = Time.current + 3600; #ConsultaAntiga incia no futuro.
     @arrayPeriodo = []
 
-    @lastFifteenDaysPeriodo.each do |item|         
+    periodo = Appointment.where("created_at >= ? and created_at <= ?", @beginning_of_period.beginning_of_day, Time.now).order('date(created_at)')
+
+    periodo.each do |item|
       @total_itens += 1
       @consulta = item.created_at #+ (@total_itens * 3600);  
       if @consulta.to_date == @consulta_antiga.to_date
