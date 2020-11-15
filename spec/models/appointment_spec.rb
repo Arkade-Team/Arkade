@@ -284,7 +284,7 @@ RSpec.describe Appointment, type: :model do
           batch = []
           
           (1..3).each do |d|
-            [4, 8, 10, 20].each do |h|
+            [4, 8, 10, 16, 20].each do |h|
               batch << { age: 41, sex: "male", created_at: d.days.ago.midnight + h.hours }
             end
           end
@@ -306,12 +306,12 @@ RSpec.describe Appointment, type: :model do
         end
 
         it "counts correctly the total amounts for period" do
-          expect(@appointments_per_day_period[1..4]).to eql([3, 6, 0, 3])
+          expect(@appointments_per_day_period[1..4]).to eql([3, 6, 3, 3])
         end
 
         it "distributes correctly the appointments into period" do
           counts = @appointments_per_day_period[0].select { |v| v.is_a? Integer }
-          expect(counts).to eql([1, 2, 0, 1] * 3)
+          expect(counts).to eql([1, 2, 1, 1] * 3)
         end
       end
     end
