@@ -31,6 +31,11 @@ RSpec.describe "Appointments", type: :request do
         diseases_per_age: Hash,
         sex_per_diseases: Hash,
         sex_distribution: Hash,
+        arrayPeriodo: Array,
+        total_madrugada: Integer,
+        total_manha: Integer,
+        total_tarde: Integer,
+        total_noite: Integer
       }.each_pair do |var, type|
         it "assigns #{var}" do
           expect(assigns(var)).to be_a(type)

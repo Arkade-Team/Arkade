@@ -266,5 +266,54 @@ RSpec.describe Appointment, type: :model do
         expect(Appointment.sex_distribution).to eql(the_counts)
       end
     end
+
+    describe "appointments_per_day_period" do
+      it "is defined" do
+        expect(Appointment).to respond_to(:appointments_per_day_period)
+      end
+
+      it "requires a date parameter prior to tomorrow" do
+        expect { Appointment.appointments_per_day_period }.to raise_error(ArgumentError)
+        expect { Appointment.appointments_per_day_period((Time.now + 2.days)) }.to raise_error(ArgumentError)
+
+        expect { Appointment.appointments_per_day_period(Time.now) }.not_to raise_error
+      end
+
+      describe "return value" do
+        before(:each) do
+          batch = []
+          
+          (1..3).each do |d|
+            [4, 8, 10, 20].each do |h|
+              batch << { age: 41, sex: "male", created_at: d.days.ago.midnight + h.hours }
+            end
+          end
+
+          Appointment.create(batch)
+
+          @appointments_per_day_period = Appointment.appointments_per_day_period @valid_period_date
+        end
+
+        it "returns an array" do
+          expect(@appointments_per_day_period).to be_an(Array)
+        end
+
+        it "returns an array with an array and 4 count" do
+          expect(@appointments_per_day_period[0]).to be_an(Array)
+          (1..4).each do |i|
+            expect(@appointments_per_day_period[i]).to be_an(Integer)
+          end
+        end
+
+        it "counts correctly the total amounts for period" do
+          expect(@appointments_per_day_period[1..4]).to eql([3, 6, 0, 3])
+        end
+
+        it "distributes correctly the appointments into period" do
+          counts = @appointments_per_day_period[0].select { |v| v.is_a? Integer }
+          expect(counts).to eql([1, 2, 0, 1] * 3)
+        end
+      end
+    end
   end
 end

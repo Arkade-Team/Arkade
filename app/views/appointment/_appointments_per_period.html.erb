@@ -48,7 +48,7 @@
       </div>
     </div>
   </div> <!-- Fim Modal-->
-  <h3>Total Consultas <%= @dias %> por Período
+  <h3>Total de Consultas <%= @sex_per_last_period_title %> por Período
     <button type="button" class="btn btn-primary" data-toggle="modal"
       data-target=".bd-example-modal-lg">Detalhes</button>
   </h3>
@@ -72,9 +72,6 @@
     <tr scope="row">
       <td>Noite</td>
       <td><%= @total_noite %></td>
-    </tr>
-    <tr scope="row">
-      <th colspan="2" class="center">Total Consultas: <%= @total_itens %></th>
     </tr>
   </table>
 </div>
