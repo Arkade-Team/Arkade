@@ -284,15 +284,23 @@ RSpec.describe Appointment, type: :model do
           expect(@appointments_per_day_period).to be_an(Array)
         end
 
-        it "returns an array with an array and 4 count" do
-          expect(@appointments_per_day_period[0]).to be_an(Array)
-          (1..4).each do |i|
-            expect(@appointments_per_day_period[i]).to be_an(Integer)
-          end
+        it "returns an array with an array and a hash" do
+          array_candidate, hash_candidate = @appointments_per_day_period
+
+          expect(array_candidate).to be_an(Array)
+          expect(hash_candidate).to be_an(Hash)
         end
 
         it "counts correctly the total amounts for period" do
-          expect(@appointments_per_day_period[1..4]).to eql([3, 6, 3, 3])
+          counts = @appointments_per_day_period[1]
+          expected = {
+            madrugada: 3,
+            manha: 6,
+            tarde: 3,
+            noite: 3
+          }
+
+          expect(counts).to eql(expected)
         end
 
         it "distributes correctly the appointments into period" do

@@ -14,6 +14,8 @@ class Appointment < ApplicationRecord
   before_validation :format_params
 
   class << self
+    @@key_periods = %i[madrugada manha tarde noite]
+
     def with_diseases_at_least(n)
       Appointment.
         joins(:diseases).
@@ -81,69 +83,67 @@ class Appointment < ApplicationRecord
       err = ArgumentError.new "parameter must be a date prior to tomorrow"
       raise err if beginning_of_period > (Time.now + 1.day).beginning_of_day
 
-      madrugada, total_madrugada, manha, total_manha,
-       tarde, total_tarde, noite, total_noite = [0] * 8
+      periods, totals, arrayPeriodo = {}, {}, []
 
-      consulta_antiga = Time.current + 3600; #ConsultaAntiga incia no futuro.
-      arrayPeriodo = []
+      @@key_periods.each do |p|
+        periods[p] = 0
+        totals[p] = 0
+      end
 
-      periodo = Appointment.
+      # consulta_antiga inicia no futuro.
+      consulta_antiga = Time.current + 3600
+
+      appointments = Appointment.
         where("created_at >= ? and created_at <= ?",
               beginning_of_period.beginning_of_day,
               Time.now).
         order('date(created_at)')
 
-      periodo.each do |item|
-        consulta = item.created_at #+ (@total_itens * 3600);
-        unless consulta.to_date == consulta_antiga.to_date
-          madrugada = 0
-          manha = 0
-          tarde = 0
-          noite = 0
-          consulta_antiga = consulta.to_date
+      appointments.each do |appointment|
+        app_timestamp = appointment.created_at
+
+        unless app_timestamp.to_date == consulta_antiga.to_date
+          consulta_antiga = app_timestamp.to_date
+
+          @@key_periods.each { |p| periods[p] = 0 }
         end
 
-        madrugada, total_madrugada, manha, total_manha,
-         tarde, total_tarde, noite, total_noite = regraPeriodoCase(
-            consulta, madrugada, total_madrugada, manha, total_manha,
-            tarde, total_tarde, noite, total_noite)
+        regraPeriodoCase(app_timestamp, periods, totals)
 
-        arrayPeriodo = preencherArray(
-          arrayPeriodo, consulta, madrugada,
-          manha, tarde, noite)
+        arrayPeriodo = preencherArray(arrayPeriodo, app_timestamp, periods)
       end
 
-      [arrayPeriodo, total_madrugada, total_manha, total_tarde, total_noite]
+      [arrayPeriodo, totals]
     end
 
     private
 
-      def preencherArray(arrayPeriodo, consulta, madrugada, manha, tarde, noite)
+      def preencherArray(arrayPeriodo, app_timestamp, periods)
         arrayPeriodo.pop(5) if arrayPeriodo.
-          include?(consulta.strftime("%d/%m/%Y"))
+          include?(app_timestamp.strftime("%d/%m/%Y"))
 
-        arrayPeriodo << consulta.strftime("%d/%m/%Y") << madrugada << manha << tarde << noite
+        arrayPeriodo << app_timestamp.strftime("%d/%m/%Y")
+
+        @@key_periods.each { |p| arrayPeriodo << periods[p] }
 
         arrayPeriodo
       end
 
-      def regraPeriodoCase(consulta, madrugada, total_madrugada, manha, total_manha, tarde, total_tarde, noite, total_noite)
-        case consulta.hour
+      def regraPeriodoCase(app_timestamp, periods, totals)
+        case app_timestamp.hour
         when 0..5
-          total_madrugada +=1
-          madrugada +=1
+          totals[:madrugada] +=1
+          periods[:madrugada] +=1
         when 6..11
-          total_manha +=1
-          manha +=1
+          totals[:manha] +=1
+          periods[:manha] +=1
         when 12..17
-          total_tarde +=1
-          tarde +=1
+          totals[:tarde] +=1
+          periods[:tarde] +=1
         when 18..23
-          total_noite +=1
-          noite +=1
+          totals[:noite] +=1
+          periods[:noite] +=1
         end
-
-        [madrugada, total_madrugada, manha, total_manha, tarde, total_tarde, noite, total_noite]
       end
 
   end

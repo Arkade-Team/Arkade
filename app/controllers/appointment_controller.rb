@@ -23,12 +23,13 @@ class AppointmentController < ApplicationController
 
     @sex_distribution = Appointment.sex_distribution
 
-    @arrayPeriodo,
-      @total_madrugada,
-      @total_manha,
-      @total_tarde,
-      @total_noite =
+    @arrayPeriodo, totals =
         Appointment.appointments_per_day_period @beginning_of_period
+
+    @total_madrugada = totals[:madrugada]
+    @total_manha = totals[:manha]
+    @total_tarde = totals[:tarde]
+    @total_noite = totals[:noite]
   end
 
   def create
