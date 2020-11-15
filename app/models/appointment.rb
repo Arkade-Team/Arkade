@@ -15,7 +15,10 @@ class Appointment < ApplicationRecord
 
   class << self
     def with_diseases_at_least(n)
-      Appointment.joins(:diseases).group("appointments.id").having("count(appointments_diseases.appointment_id) >= ?", [n])
+      Appointment.
+        joins(:diseases).
+        group("appointments.id").
+        having("count(appointments_diseases.appointment_id) >= ?", [n])
     end
 
     def age_distribution
@@ -26,26 +29,52 @@ class Appointment < ApplicationRecord
       err = ArgumentError.new "parameter must be a date prior to tomorrow"
       raise err if beginning_of_period > (Time.now + 1.day).beginning_of_day
 
-      Appointment.where("created_at >= ? and created_at <= ?", beginning_of_period.beginning_of_day, Time.now).group('sex').order('sex').group('date(created_at)').order('date(created_at)').count
+      Appointment.
+        where("created_at >= ? and created_at <= ?",
+              beginning_of_period.beginning_of_day,
+              Time.now).
+        group('sex').
+        order('sex').
+        group('date(created_at)').
+        order('date(created_at)').
+        count
     end
 
     def appointments_per_disease(beginning_of_period)
       err = ArgumentError.new "parameter must be a date prior to tomorrow"
       raise err if beginning_of_period > (Time.now + 1.day).beginning_of_day
 
-      Appointment.where("appointments.created_at >= ? and appointments.created_at <= ?", beginning_of_period.to_date, Time.now).joins(:diseases).group('diseases.name').group('date(appointments.created_at)').count
+      Appointment.
+        where("appointments.created_at >= ? and appointments.created_at <= ?",
+              beginning_of_period.to_date,
+              Time.now).
+        joins(:diseases).
+        group('diseases.name').
+        group('date(appointments.created_at)').
+        count
     end
 
     def diseases_per_age
-      Appointment.joins(:diseases).group('diseases.name').group('appointments.age').count
+      Appointment.
+        joins(:diseases).
+        group('diseases.name').
+        group('appointments.age').
+        count
     end
 
     def sex_per_diseases
-      Appointment.joins(:diseases).group('appointments.sex').group('diseases.name').count
+      Appointment.
+        joins(:diseases).
+        group('appointments.sex').
+        group('diseases.name').
+        count
     end
 
     def sex_distribution
-      Appointment.group('sex').order('sex').count
+      Appointment.
+        group('sex').
+        order('sex').
+        count
     end
 
     def appointments_per_day_period(beginning_of_period)
@@ -58,7 +87,11 @@ class Appointment < ApplicationRecord
       consulta_antiga = Time.current + 3600; #ConsultaAntiga incia no futuro.
       arrayPeriodo = []
 
-      periodo = Appointment.where("created_at >= ? and created_at <= ?", beginning_of_period.beginning_of_day, Time.now).order('date(created_at)')
+      periodo = Appointment.
+        where("created_at >= ? and created_at <= ?",
+              beginning_of_period.beginning_of_day,
+              Time.now).
+        order('date(created_at)')
 
       periodo.each do |item|
         consulta = item.created_at #+ (@total_itens * 3600);
@@ -71,13 +104,13 @@ class Appointment < ApplicationRecord
         end
 
         madrugada, total_madrugada, manha, total_manha,
-         tarde, total_tarde, noite, total_noite =
-          regraPeriodoCase(
+         tarde, total_tarde, noite, total_noite = regraPeriodoCase(
             consulta, madrugada, total_madrugada, manha, total_manha,
-            tarde, total_tarde, noite, total_noite
-          )
+            tarde, total_tarde, noite, total_noite)
 
-        arrayPeriodo = preencherArray arrayPeriodo, consulta, madrugada, manha, tarde, noite
+        arrayPeriodo = preencherArray(
+          arrayPeriodo, consulta, madrugada,
+          manha, tarde, noite)
       end
 
       [arrayPeriodo, total_madrugada, total_manha, total_tarde, total_noite]
@@ -86,12 +119,10 @@ class Appointment < ApplicationRecord
     private
 
       def preencherArray(arrayPeriodo, consulta, madrugada, manha, tarde, noite)
-        if arrayPeriodo.include?(consulta.strftime("%d/%m/%Y"))
-          arrayPeriodo.pop(5)
-          arrayPeriodo << consulta.strftime("%d/%m/%Y") << madrugada << manha << tarde << noite
-        else
-          arrayPeriodo << consulta.strftime("%d/%m/%Y") << madrugada << manha << tarde << noite
-        end
+        arrayPeriodo.pop(5) if arrayPeriodo.
+          include?(consulta.strftime("%d/%m/%Y"))
+
+        arrayPeriodo << consulta.strftime("%d/%m/%Y") << madrugada << manha << tarde << noite
 
         arrayPeriodo
       end

@@ -54,10 +54,9 @@ RSpec.describe Appointment, type: :model do
     end
 
     describe "general aspects of methods" do
-      methods = %i[
-        age_distribution sex_per_last_period appointments_per_disease
-        diseases_per_age sex_per_diseases sex_distribution appointments_per_day_period
-      ]
+      methods = %i[age_distribution sex_per_last_period
+        appointments_per_disease diseases_per_age sex_per_diseases
+        sex_distribution appointments_per_day_period]
 
       methods.each do |method|
         it "is defined" do
@@ -65,13 +64,18 @@ RSpec.describe Appointment, type: :model do
         end
       end
 
-      parameterized_methods = %i[sex_per_last_period appointments_per_disease appointments_per_day_period]
+      parameterized_methods = %i[sex_per_last_period
+        appointments_per_disease appointments_per_day_period]
+
       parameterized_methods.each do |method|
         it "requires a date parameter prior to tomorrow" do
-          expect { Appointment.send(method) }.to raise_error(ArgumentError)
-          expect { Appointment.send(method, (Time.now + 2.days)) }.to raise_error(ArgumentError)
+          expect { Appointment.send(method) }.
+            to raise_error(ArgumentError)
+          expect { Appointment.send(method, (Time.now + 2.days)) }.
+            to raise_error(ArgumentError)
 
-          expect { Appointment.send(method, Time.now) }.not_to raise_error
+          expect { Appointment.send(method, Time.now) }.
+            not_to raise_error
         end
       end
     end
@@ -106,7 +110,8 @@ RSpec.describe Appointment, type: :model do
 
     describe "sex_per_last_period" do
       it "returns an empty hash when no data is present" do
-        expect(Appointment.sex_per_last_period(@valid_period_date)).to eql({})
+        expect(Appointment.
+               sex_per_last_period(@valid_period_date)).to eql({})
       end
 
       it "return correct counts when there is data" do
@@ -122,13 +127,15 @@ RSpec.describe Appointment, type: :model do
           { sex: "female", age: 37, created_at: 2.days.ago },
         ])
 
-        expect(Appointment.sex_per_last_period(@valid_period_date)).to eql(the_counts)
+        expect(Appointment.
+               sex_per_last_period(@valid_period_date)).to eql(the_counts)
       end
     end
 
     describe "appointments_per_disease" do
       it "returns an empty hash when there is no data" do
-        expect(Appointment.appointments_per_disease(@valid_period_date)).to eql({})
+        expect(Appointment.
+               appointments_per_disease(@valid_period_date)).to eql({})
       end
 
       it "returns the correct counts when there is data" do
@@ -141,7 +148,8 @@ RSpec.describe Appointment, type: :model do
         app = Appointment.create(sex: "female", age: 64, created_at: day)
         app.diseases << Disease.create(name: osteo)
 
-        expect(Appointment.appointments_per_disease(@valid_period_date)).to eql(the_counts)
+        expect(Appointment.appointments_per_disease(@valid_period_date)).
+          to eql(the_counts)
       end
     end
 
@@ -259,13 +267,17 @@ RSpec.describe Appointment, type: :model do
           
           (1..3).each do |d|
             [4, 8, 10, 16, 20].each do |h|
-              batch << { age: 41, sex: "male", created_at: d.days.ago.midnight + h.hours }
+              batch << {
+                age: 41,
+                sex: "male",
+                created_at: d.days.ago.midnight + h.hours }
             end
           end
 
           Appointment.create(batch)
 
-          @appointments_per_day_period = Appointment.appointments_per_day_period @valid_period_date
+          @appointments_per_day_period = Appointment.
+            appointments_per_day_period @valid_period_date
         end
 
         it "returns an array" do
@@ -284,7 +296,9 @@ RSpec.describe Appointment, type: :model do
         end
 
         it "distributes correctly the appointments into period" do
-          counts = @appointments_per_day_period[0].select { |v| v.is_a? Integer }
+          counts =
+            @appointments_per_day_period[0].select { |v| v.is_a? Integer }
+
           expect(counts).to eql([1, 2, 1, 1] * 3)
         end
       end

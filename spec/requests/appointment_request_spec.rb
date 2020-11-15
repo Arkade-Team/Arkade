@@ -97,7 +97,8 @@ RSpec.describe "Appointments", type: :request do
       days = 4
       get "/appointments", params: { days: days }
 
-      expect(assigns(:sex_per_last_period_title)).to eql("dos últimos #{days} dias")
+      expect(assigns(:sex_per_last_period_title)).
+        to eql("dos últimos #{days} dias")
     end
   end
 
@@ -128,7 +129,8 @@ RSpec.describe "Appointments", type: :request do
     end
 
     it "returns the just-created register when all params are ok" do
-      post "/appointments", params: { appointment: { sex: "male", age: 42 } }
+      post "/appointments",
+        params: { appointment: { sex: "male", age: 42 } }
 
       ["sex", "age", "id"].each do |attr|
         expect(response.body).to include(attr)
