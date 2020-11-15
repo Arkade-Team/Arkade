@@ -53,11 +53,30 @@ RSpec.describe Appointment, type: :model do
       @valid_period_date = 4.days.ago
     end
 
-    describe "age_distribution" do
-      it "is defined" do
-        expect(Appointment).to respond_to(:age_distribution)
+    describe "general aspects of methods" do
+      methods = %i[
+        age_distribution sex_per_last_period appointments_per_disease
+        diseases_per_age sex_per_diseases sex_distribution appointments_per_day_period
+      ]
+
+      methods.each do |method|
+        it "is defined" do
+          expect(Appointment).to respond_to(method)
+        end
       end
 
+      parameterized_methods = %i[sex_per_last_period appointments_per_disease appointments_per_day_period]
+      parameterized_methods.each do |method|
+        it "requires a date parameter prior to tomorrow" do
+          expect { Appointment.send(method) }.to raise_error(ArgumentError)
+          expect { Appointment.send(method, (Time.now + 2.days)) }.to raise_error(ArgumentError)
+
+          expect { Appointment.send(method, Time.now) }.not_to raise_error
+        end
+      end
+    end
+
+    describe "age_distribution" do
       it "always returns a Hash" do
         expect(Appointment.age_distribution).to be_a(Hash)
 
@@ -86,17 +105,6 @@ RSpec.describe Appointment, type: :model do
     end
 
     describe "sex_per_last_period" do
-      it "is defined" do
-        expect(Appointment).to respond_to(:sex_per_last_period)
-      end
-
-      it "requires a date parameter prior to tomorrow" do
-        expect { Appointment.sex_per_last_period }.to raise_error(ArgumentError)
-        expect { Appointment.sex_per_last_period((Time.now + 2.days)) }.to raise_error(ArgumentError)
-
-        expect { Appointment.sex_per_last_period(Time.now) }.not_to raise_error
-      end
-
       it "returns an empty hash when no data is present" do
         expect(Appointment.sex_per_last_period(@valid_period_date)).to eql({})
       end
@@ -119,17 +127,6 @@ RSpec.describe Appointment, type: :model do
     end
 
     describe "appointments_per_disease" do
-      it "is defined" do
-        expect(Appointment).to respond_to(:appointments_per_disease)
-      end
-
-      it "requires a date parameter prior to tomorrow" do
-        expect { Appointment.appointments_per_disease }.to raise_error(ArgumentError)
-        expect { Appointment.appointments_per_disease((Time.now + 2.days)) }.to raise_error(ArgumentError)
-
-        expect { Appointment.appointments_per_disease(Time.now) }.not_to raise_error
-      end
-
       it "returns an empty hash when there is no data" do
         expect(Appointment.appointments_per_disease(@valid_period_date)).to eql({})
       end
@@ -149,10 +146,6 @@ RSpec.describe Appointment, type: :model do
     end
 
     describe "diseases_per_age" do
-      it "is defined" do
-        expect(Appointment).to respond_to(:diseases_per_age)
-      end
-
       it "returns an empty hash when there is no data" do
         expect(Appointment.diseases_per_age).to eql({})
       end
@@ -194,10 +187,6 @@ RSpec.describe Appointment, type: :model do
     end
 
     describe "sex_per_diseases" do
-      it "is defined" do
-        expect(Appointment).to respond_to(:sex_per_diseases)
-      end
-
       it "returns an empty hash when there is no data" do
         expect(Appointment.sex_per_diseases).to eql({})
       end
@@ -239,10 +228,6 @@ RSpec.describe Appointment, type: :model do
     end
 
     describe "sex_distribution" do
-      it "is defined" do
-        expect(Appointment).to respond_to(:sex_distribution)
-      end
-
       it "returns an empty hash when there is no data" do
         expect(Appointment.sex_distribution).to eql({})
       end
@@ -268,17 +253,6 @@ RSpec.describe Appointment, type: :model do
     end
 
     describe "appointments_per_day_period" do
-      it "is defined" do
-        expect(Appointment).to respond_to(:appointments_per_day_period)
-      end
-
-      it "requires a date parameter prior to tomorrow" do
-        expect { Appointment.appointments_per_day_period }.to raise_error(ArgumentError)
-        expect { Appointment.appointments_per_day_period((Time.now + 2.days)) }.to raise_error(ArgumentError)
-
-        expect { Appointment.appointments_per_day_period(Time.now) }.not_to raise_error
-      end
-
       describe "return value" do
         before(:each) do
           batch = []
