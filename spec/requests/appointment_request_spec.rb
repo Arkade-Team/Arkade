@@ -92,6 +92,13 @@ RSpec.describe "Appointments", type: :request do
         expect(assigns(scene[:name])).to eql(scene[:mocked]) 
       end
     end
+
+    it "sets different titles for periods greater than 0" do
+      days = 4
+      get "/appointments", params: { days: days }
+
+      expect(assigns(:sex_per_last_period_title)).to eql("dos últimos #{days} dias")
+    end
   end
 
   describe "POST /appointments" do
