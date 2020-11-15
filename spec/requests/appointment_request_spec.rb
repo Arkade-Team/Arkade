@@ -89,4 +89,39 @@ RSpec.describe "Appointments", type: :request do
     end
   end
 
+  describe "POST /appointments" do
+    it "fails when requested without parameters" do
+      expect { post "/appointments" }.not_to raise_error
+    end
+
+    it "returns :parameter_missing when requested without parameters" do
+      post "/appointments"
+
+      expect(response.body).to include("error")
+    end
+
+    [
+      { sex: "foo", age: 42 },
+      { sex: "female", age: -1 },
+      { sex: "female", age: 130 },
+      { sex: "foo", age: -1 },
+      { sex: "male" },
+      { age: 42 },
+    ].each do |params|
+      it "returns a list of errors when requested with #{ params }" do
+        post "/appointments", params: { appointment: params }
+
+        expect(response.body).to include("errors")
+      end
+    end
+
+    it "returns the just-created register when all params are ok" do
+      post "/appointments", params: { appointment: { sex: "male", age: 42 } }
+
+      ["sex", "age", "id"].each do |attr|
+        expect(response.body).to include(attr)
+      end
+    end
+  end
+
 end

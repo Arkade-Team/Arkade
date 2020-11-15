@@ -1,6 +1,8 @@
 class AppointmentController < ApplicationController
   before_action :set_period, only: [:index]
   skip_before_action :verify_authenticity_token, only: [:create]
+  rescue_from ActionController::ParameterMissing,
+              with: :parameter_missing
 
   def index 
     @age_distribution = Appointment.age_distribution
@@ -95,6 +97,10 @@ class AppointmentController < ApplicationController
   private
     def appointment_params
       params.require(:appointment).permit(:age, :sex)
+    end
+
+    def parameter_missing
+      render json: { error: :parameter_missing }
     end
 
     def set_period
