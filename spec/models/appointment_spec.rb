@@ -92,9 +92,11 @@ RSpec.describe Appointment, type: :model do
 
       it "requires a date parameter prior to tomorrow" do
         expect { Appointment.sex_per_last_period }.to raise_error(ArgumentError)
-        expect { Appointment.sex_per_last_period((Time.now + 2.days)) }.to raise_error(ArgumentError)
 
-        expect { Appointment.sex_per_last_period(Time.now) }.not_to raise_error
+        [{ param: Time.now + 2.days, msg: :to },
+         { param: Time.now, msg: :not_to }].each do |scene|
+          expect { Appointment.sex_per_last_period(scene[:param]) }.send(scene[:msg], raise_error)
+        end
       end
 
       it "returns an empty hash when no data is present" do
@@ -125,9 +127,11 @@ RSpec.describe Appointment, type: :model do
 
       it "requires a date parameter prior to tomorrow" do
         expect { Appointment.appointments_per_disease }.to raise_error(ArgumentError)
-        expect { Appointment.appointments_per_disease((Time.now + 2.days)) }.to raise_error(ArgumentError)
 
-        expect { Appointment.appointments_per_disease(Time.now) }.not_to raise_error
+        [{ param: Time.now + 2.days, msg: :to },
+         { param: Time.now, msg: :not_to }].each do |scene|
+          expect { Appointment.appointments_per_disease(scene[:param]) }.send(scene[:msg], raise_error)
+        end
       end
 
       it "returns an empty hash when there is no data" do
