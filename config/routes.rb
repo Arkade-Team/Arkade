@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get '/doctors', to: "doctor#index"
   get '/doctors/new', to: "doctor#new"
   post '/doctors', to: "doctor#create"
@@ -16,6 +15,9 @@ Rails.application.routes.draw do
 
   post '/appointments/:appointment_id/diseases/:disease_id/actions', to: "appointment_action#create"
   get '/actions', to: "appointment_action#index"
+
+  get "/wikis", to: "wiki#index"
+  put '/wikis', to: "wiki#update"
 
   root "home#index"
 end
