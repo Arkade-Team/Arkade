@@ -3,6 +3,9 @@ class WikiController < ApplicationController
 
   def index
     @wikis = Wiki.all
+    @wikisTotal = Wiki.joins(:readingtimes).count
+    @wikisTopFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) DESC").group(:name).limit(5).count
+    @wikisBottomFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) ASC").group(:name).limit(5).count
   end
 
   def update

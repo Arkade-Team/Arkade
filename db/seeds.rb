@@ -6,9 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-wiki = Wiki.create(name: "Calculadora FRAX")
+#wiki = Wiki.create(name: "Calculadora FRAX")
+#5.times do
+#  wiki.readingtimes << Readingtime.create
+#end
 
-wiki.readingtimes << Readingtime.create
+i = 0
+30.times do
+  i = i + 1
+  wiki = Wiki.create(name: "Wiki " + (i.to_s) )
+  randomico = rand(1..20)
+  randomico.times do
+    wiki.readingtimes << Readingtime.create
+  end
+end
 
 def distribution elements_with_counts
   pool = []

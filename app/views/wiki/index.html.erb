@@ -1,14 +1,96 @@
-<table>
-  <tr>
-    <th>#</th>
-    <th data-ccb="name">Nome</th>
-    <th data-ccb="count">Contagem de leituras</th>
-  </tr>
-  <% @wikis.each do |wiki| %>
-    <tr>
-      <td><%= wiki.id %></td>
-      <td><%= wiki.name %></td>
-      <td><%= wiki.readingtimes.size %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="jumbotron">
+  <div class="container">
+    <h4>Dashboard Wikis</h4>
+    <hr>
+
+    <div class="row">
+    <div class="col-4">
+      <div class="card bg-light mb-3">
+        <div class="card-header" align=center>Total Geral de Leituras</div>
+          <div class="card-body">
+            <h5 class="card-title" align=center> <%= @wikisTotal %></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card bg-light mb-3">
+          <div class="card-header" align=center>Total de Dias Distintos</div>
+            <div class="card-body">
+              <h5 class="card-title" align=center> <%= @wikisTotal %></h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card bg-light mb-3">
+            <div class="card-header" align=center>Total Média de Leituras por Dia</div>
+              <div class="card-body">
+                <h5 class="card-title" align=center> <%= @wikisTotal %></h5>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+          <h5 align=center>5 Wikis mais lidas</h5>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Contagem de leituras</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @wikisTopFive.keys.each do |key| %>
+                <tr>
+                    <th scope="row"><%= key %></th>
+                    <td><%= @wikisTopFive[key] %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>    
+      </div>
+      <div class="col-6">
+          <h5 align=center>5 Wikis menos lidas</h5>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Contagem de leituras</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @wikisBottomFive.keys.each do |key| %>
+                <tr>
+                    <th scope="row"><%= key %></th>
+                    <td><%= @wikisBottomFive[key] %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>    
+      </div>      
+    </div>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Contagem de leituras</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @wikis.each do |wiki| %>
+            <tr>
+                <th scope="row"><%= wiki.id %></th>
+                <td><%= wiki.name %></td>
+                <td><%= wiki.readingtimes.size %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>    
+
+
+
+  </div>
+</div>
