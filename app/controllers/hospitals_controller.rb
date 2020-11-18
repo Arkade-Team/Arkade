@@ -24,9 +24,9 @@ class HospitalsController < ApplicationController
     @hospital = Hospital.new(hospital_params)
 
     if @hospital.save
-      render json: @appointment
+      render json: @hospital
     else
-      format.json { render json: @hospital.errors, status: :unprocessable_entity }
+      render json: @hospital.errors
     end
   end
 

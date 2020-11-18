@@ -15,5 +15,5 @@
   end
   
   Então('deverá ver uma lista de hospitais cadastrados') do
-    last_json.should have_json_path("name")
+    expect(page).to have_content("Hospitals")
   end
