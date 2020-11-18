@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-
-  get '/doctors', to: 'doctor#index'
-  get '/doctors/new', to: 'doctor#new'
-  post '/doctors', to: 'doctor#create'
-  get '/doctors/:id', to: 'doctor#show'
-  get '/doctors/:id/edit', to: 'doctor#edit'
+  get '/doctors', to: "doctor#index"
+  get '/doctors/new', to: "doctor#new"
+  post '/doctors', to: "doctor#create"
+  get '/doctors/:id', to: "doctor#show"
+  get '/doctors/:id/edit', to: "doctor#edit"
   resources :doctor
 
   post '/appointments', to: 'appointment#create'
@@ -26,5 +25,8 @@ Rails.application.routes.draw do
   get '/hospitals/:hospital/appointments', to: 'hospitals#appointments'
   resources :hospital
   
-  root 'home#index'
+  get "/wikis", to: "wiki#index"
+  put '/wikis', to: "wiki#update"
+
+  root "home#index"
 end

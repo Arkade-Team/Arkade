@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>#</th>
+    <th data-ccb="name">Nome</th>
+    <th data-ccb="count">Contagem de leituras</th>
+  </tr>
+  <% @wikis.each do |wiki| %>
+    <tr>
+      <td><%= wiki.id %></td>
+      <td><%= wiki.name %></td>
+      <td><%= wiki.readingtimes.size %></td>
+    </tr>
+  <% end %>
+</table>

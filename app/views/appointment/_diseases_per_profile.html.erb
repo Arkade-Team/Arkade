@@ -1,0 +1,9 @@
+<h3>Doenças por perfil</h3>
+<div class="row">
+  <div class="col-3">
+    <%= column_chart @sex_per_diseases, title: "Sexo x Doenças", download: true %>
+  </div>
+  <div class="col-9">
+    <%= column_chart @diseases_per_age, title: "Doenças x Idade", stacked:true, download: true %>
+  </div>
+</div>
