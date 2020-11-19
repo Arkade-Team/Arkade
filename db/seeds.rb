@@ -6,10 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-wiki = Wiki.create(name: "Calculadora FRAX")
-
-wiki.readingtimes << Readingtime.create
-
 def distribution elements_with_counts
   pool = []
 
@@ -135,3 +131,18 @@ monteSinai = Hospital.create(name: "Monte Sinai")
 Appointment.create(age: 34, sex: "male", hospital: hcor)
 Appointment.create(age: 39, sex: "male", hospital: hcor)
 Appointment.create(age: 69, sex: "female", hospital: monteSinai)
+
+## Wikis
+
+Wiki.create([
+  { name: "Calculadora FRAX" },
+  { name: "Densitometria Óssea" },
+  { name: "Câncer de Próstata" }
+])
+
+Wiki.all.each do |wiki|
+  (30..120).to_a.sample.times do |n|
+    wiki.readingtimes << Readingtime.create(created_at: random_date)
+  end
+end
+
