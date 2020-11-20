@@ -3,6 +3,7 @@
     <h4>Dashboard Wikis</h4>
     <hr>
 
+    <p><%= @wikisTotalByDayWeek %></p>
     <div class="row">
     <div class="col-4">
       <div class="card bg-light mb-3">
@@ -16,7 +17,7 @@
         <div class="card bg-light mb-3">
           <div class="card-header" align=center>Total de Dias Distintos</div>
             <div class="card-body">
-              <h5 class="card-title" align=center> <%= @wikisTotal %></h5>
+              <h5 class="card-title" align=center> <%= @wikisTotalDistinctDays %></h5>
             </div>
           </div>
         </div>
@@ -24,7 +25,7 @@
           <div class="card bg-light mb-3">
             <div class="card-header" align=center>Total Média de Leituras por Dia</div>
               <div class="card-body">
-                <h5 class="card-title" align=center> <%= @wikisTotal %></h5>
+                <h5 class="card-title" align=center> <%= @wikisTotalReadingsByDay %></h5>
               </div>
             </div>
           </div>
