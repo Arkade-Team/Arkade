@@ -3,7 +3,6 @@
     <h4>Dashboard Wikis</h4>
     <hr>
 
-    <p><%= @wikisTotalByDayWeek %></p>
     <div class="row">
     <div class="col-4">
       <div class="card bg-light mb-3">
@@ -32,7 +31,7 @@
     </div>
 
     <div class="row">
-      <div class="col-6">
+      <div class="col-4">
           <h5 align=center>5 Wikis mais lidas</h5>
           <table class="table">
             <thead class="thead-light">
@@ -51,7 +50,7 @@
             </tbody>
           </table>    
       </div>
-      <div class="col-6">
+      <div class="col-4">
           <h5 align=center>5 Wikis menos lidas</h5>
           <table class="table">
             <thead class="thead-light">
@@ -69,9 +68,21 @@
             <% end %>
             </tbody>
           </table>    
-      </div>      
+      </div>
+      <div class="col-4">
+        <%= column_chart @wikisTotalByDayWeek, title: "Total de Leituras por Dia Semana", download: true %>
+      </div> 
     </div>
+            
+    <!--
+    <div class="row">
+      <%= column_chart @wikisTotalByDayWeek, title: "Total de Leituras por Dia Semana", download: true %>
+    </div>
+    -->
 
+    <hr>
+    <br>
+    <h4>Wikis x Leituras (<%= @wikisTotal %>)</h4>
     <table class="table">
         <thead class="thead-light">
         <tr>

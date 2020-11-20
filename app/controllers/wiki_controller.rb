@@ -4,11 +4,15 @@ class WikiController < ApplicationController
   def index
     @wikis = Wiki.all
     @wikisTotal = Wiki.joins(:readingtimes).count
-    @wikisTotalByDayWeek = Wiki.joins(:readingtimes).group("extract(dow from readingtimes.updated_at)").count
+    @wikisTotalByDayWeek = Wiki.joins(:readingtimes).group("extract(dow from readingtimes.created_at)").count
     @wikisTotalDistinctDays = Wiki.joins(:readingtimes).distinct.count("Date(readingtimes.created_at)")
     @wikisTopFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) DESC").group(:name).limit(5).count
     @wikisBottomFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) ASC").group(:name).limit(5).count
-    @wikisTotalReadingsByDay = @wikisTotal / @wikisTotalDistinctDays
+    if (@wikisTotalDistinctDays != 0)
+        @wikisTotalReadingsByDay = (@wikisTotal * 1.0 / @wikisTotalDistinctDays).to_d(3)
+    else
+        @wikisTotalDistinctDays = nil
+    end
   
     @wikisTotalByDayWeek["Dom"] = @wikisTotalByDayWeek.delete(0.0)
     @wikisTotalByDayWeek["Seg"] = @wikisTotalByDayWeek.delete(1.0)

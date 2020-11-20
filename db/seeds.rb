@@ -11,16 +11,6 @@
 #  wiki.readingtimes << Readingtime.create
 #end
 
-i = 0
-30.times do
-  i = i + 1
-  wiki = Wiki.create(name: "Wiki " + (i.to_s) )
-  randomico = rand(1..20)
-  randomico.times do
-    wiki.readingtimes << Readingtime.create
-  end
-end
-
 def distribution elements_with_counts
   pool = []
 
@@ -135,3 +125,27 @@ generate_appointments age_distribution, sex_distribution, [depressao]
 ## Appointments with multiple diseases
 
 generate_cross_disease_appointments [osteoporose, hiv, depressao]
+
+
+## Wikis
+
+Wiki.create([
+  { name: "Calculadora FRAX" },
+  { name: "Densitometria Óssea" },
+  { name: "Câncer de Próstata" },
+  { name: "Obesidade" },
+  { name: "Pressão Alta" },
+  { name: "Diabetes" },
+  { name: "Anemia" },
+  { name: "Problemas Cardiovasculares"},
+  { name: "Menopausa"},
+  { name: "Incontinência Urinária" }
+])
+
+Wiki.all.each do |wiki|
+  (30..120).to_a.sample.times do |n|
+    wiki.readingtimes << Readingtime.create(created_at: random_date)
+  end
+end
+
+
