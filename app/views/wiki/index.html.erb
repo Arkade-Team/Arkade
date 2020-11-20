@@ -6,7 +6,7 @@
     <div class="row">
     <div class="col-4">
       <div class="card bg-light mb-3">
-        <div class="card-header" align=center>Total Geral de Leituras</div>
+        <div data-ccb="total-geral" class="card-header" align=center>Total Geral de Leituras</div>
           <div class="card-body">
             <h5 class="card-title" align=center> <%= @wikisTotal %></h5>
           </div>
@@ -14,7 +14,7 @@
       </div>
       <div class="col-4">
         <div class="card bg-light mb-3">
-          <div class="card-header" align=center>Total de Dias Distintos</div>
+          <div data-ccb="total-dias-distintos" class="card-header" align=center>Total de Dias Distintos</div>
             <div class="card-body">
               <h5 class="card-title" align=center> <%= @wikisTotalDistinctDays %></h5>
             </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-4">
           <div class="card bg-light mb-3">
-            <div class="card-header" align=center>Total Média de Leituras por Dia</div>
+            <div data-ccb="media-leituras" class="card-header" align=center>Total Média de Leituras por Dia</div>
               <div class="card-body">
                 <h5 class="card-title" align=center> <%= @wikisTotalReadingsByDay %></h5>
               </div>
@@ -36,8 +36,8 @@
           <table class="table">
             <thead class="thead-light">
               <tr>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Contagem de leituras</th>
+                  <th data-ccb="wiki-mais-lida" scope="col">Nome</th>
+                  <th data-ccb="wiki-total-mais-lida" scope="col">Contagem de leituras</th>
               </tr>
             </thead>
             <tbody>
@@ -55,8 +55,8 @@
           <table class="table">
             <thead class="thead-light">
               <tr>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Contagem de leituras</th>
+                  <th data-ccb="wiki-menos-lida" scope="col">Nome</th>
+                  <th data-ccb="wiki-total-menos-lida" scope="col">Contagem de leituras</th>
               </tr>
             </thead>
             <tbody>
@@ -69,17 +69,11 @@
             </tbody>
           </table>    
       </div>
-      <div class="col-4">
+      <div data-ccb="wiki-total-dia-semana" class="col-4">
         <%= column_chart @wikisTotalByDayWeek, title: "Total de Leituras por Dia Semana", download: true %>
       </div> 
     </div>
-            
-    <!--
-    <div class="row">
-      <%= column_chart @wikisTotalByDayWeek, title: "Total de Leituras por Dia Semana", download: true %>
-    </div>
-    -->
-
+   
     <hr>
     <br>
     <h4>Wikis x Leituras (<%= @wikisTotal %>)</h4>
@@ -87,8 +81,8 @@
         <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Contagem de leituras</th>
+            <th data-ccb="name" scope="col">Nome</th>
+            <th data-ccb="count" scope="col">Contagem de leituras</th>
         </tr>
         </thead>
         <tbody>
