@@ -8,10 +8,10 @@ class WikiController < ApplicationController
     @wikisTotalDistinctDays = Wiki.joins(:readingtimes).distinct.count("Date(readingtimes.created_at)")
     @wikisTopFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) DESC").group(:name).limit(5).count
     @wikisBottomFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) ASC").group(:name).limit(5).count
+    
+    @wikisTotalReadingsByDay = nil
     if (@wikisTotalDistinctDays != 0)
-        @wikisTotalReadingsByDay = (@wikisTotal * 1.0 / @wikisTotalDistinctDays).to_d(3)
-    else
-        @wikisTotalDistinctDays = nil
+      @wikisTotalReadingsByDay = (@wikisTotal * 1.0 / @wikisTotalDistinctDays).to_d(3)
     end
   
     @wikisTotalByDayWeek["Dom"] = @wikisTotalByDayWeek.delete(0.0)
