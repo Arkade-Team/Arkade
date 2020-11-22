@@ -3,8 +3,28 @@ class WikiController < ApplicationController
 
   def index
     @wikis = Wiki.all
+    @wikisTotal = Wiki.joins(:readingtimes).count
+    @wikisTotalByDayWeek = Wiki.joins(:readingtimes).group("extract(dow from readingtimes.created_at)").count
+    @wikisTotalDistinctDays = Wiki.joins(:readingtimes).distinct.count("Date(readingtimes.created_at)")
+    @wikisTopFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) DESC").group(:name).limit(5).count
+    @wikisBottomFive = Wiki.joins("left join readingtimes on readingtimes.wiki_id = wikis.id").order("count(wikis.id) ASC").group(:name).limit(5).count
+    
+    @wikisTotalReadingsByDay = nil
+    if (@wikisTotalDistinctDays != 0)
+      @wikisTotalReadingsByDay = (@wikisTotal * 1.0 / @wikisTotalDistinctDays).to_d(3)
+    end
+  
+    @wikisTotalByDayWeek["Dom"] = @wikisTotalByDayWeek.delete(0.0)
+    @wikisTotalByDayWeek["Seg"] = @wikisTotalByDayWeek.delete(1.0)
+    @wikisTotalByDayWeek["Ter"] = @wikisTotalByDayWeek.delete(2.0)
+    @wikisTotalByDayWeek["Qua"] = @wikisTotalByDayWeek.delete(3.0)
+    @wikisTotalByDayWeek["Qui"] = @wikisTotalByDayWeek.delete(4.0)
+    @wikisTotalByDayWeek["Sex"] = @wikisTotalByDayWeek.delete(5.0)
+    @wikisTotalByDayWeek["Sab"] = @wikisTotalByDayWeek.delete(6.0)
+
   end
 
+ 
   def update
     begin
       wiki_data = wiki_update_params
