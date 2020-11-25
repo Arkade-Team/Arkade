@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2020_11_11_203919) do
     t.string "sex"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "hospital_id"
+    t.index ["hospital_id"], name: "index_appointments_on_hospital_id"
   end
 
   create_table "appointments_diseases", force: :cascade do |t|
@@ -45,6 +47,12 @@ ActiveRecord::Schema.define(version: 2020_11_11_203919) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "hospitals", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "readingtimes", force: :cascade do |t|
     t.bigint "wiki_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -58,5 +66,6 @@ ActiveRecord::Schema.define(version: 2020_11_11_203919) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "appointments", "hospitals"
   add_foreign_key "readingtimes", "wikis"
 end

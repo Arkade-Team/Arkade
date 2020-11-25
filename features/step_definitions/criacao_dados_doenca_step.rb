@@ -1,19 +1,32 @@
 require 'json'
 Dado "uma consulta de {string} de {string} anos" do |sex, age|
   @appointment = Appointment.create(sex: sex, age: age)
+  @appointment.hospital = Hospital.create(name: 'Hcor')
+  @appointment.save
 end
 
 Dado "nenhuma consulta" do
   @appointment = Appointment.new
+  @appointment.hospital = Hospital.create(name: 'Hcor')
+  @appointment.save
 end
 
 Dado "uma consulta que investigou {string}" do |disease|
   Disease.delete_all
   Appointment.delete_all
-  @disease = Disease.find_by_name(disease) || Disease.create(name: disease)
+  Hospital.delete_all 
+
   @appointment = Appointment.create(sex: "female", age: 54)
 
+  @hcor = Hospital.create(name: 'Hcor')
+  @hcor.save
+  @appointment.hospital = @hcor
+
+  @disease = Disease.find_by_name(disease) || Disease.create(name: disease)
   @appointment.diseases << @disease
+
+  @appointment.save
+
 end
 
 Quando "o cliente investiga {string}" do |nome| 

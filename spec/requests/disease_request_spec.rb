@@ -24,6 +24,11 @@ RSpec.describe DiseaseController, type: :request do
   it 'returns a list of diseases when success' do
     app = Appointment.create sex: "male", age: 42
 
+    hcor = Hospital.create(name: 'Hcor')
+    app.hospital = hcor
+
+    app.save
+
     post "/appointments/#{app.id}/diseases",
       params: { diseases: [{ name: "Osteoporose" }, { name: "HIV" }] }
 

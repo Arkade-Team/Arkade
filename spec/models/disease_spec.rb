@@ -37,7 +37,12 @@ RSpec.describe Disease, type: :model do
       @appointment.diseases << @osteo
     end
 
-    it "returns a double-indexed hash with the count" do
+    it "returns a double-indexed hash with the count" do      
+
+      hcor = Hospital.create(name: 'Hcor')
+      @appointment.hospital = hcor
+      @appointment.save
+
       hash = Disease.related_pairs
 
       expect(hash).to have_key("Depressão")
@@ -51,6 +56,10 @@ RSpec.describe Disease, type: :model do
 
     it "counts pairs even with appointment with more than 2 diseases" do
       @appointment.diseases << Disease.create(name: "HIV")
+
+      hcor = Hospital.create(name: 'Hcor')
+      @appointment.hospital = hcor
+      @appointment.save
 
       hash = Disease.related_pairs
 

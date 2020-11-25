@@ -1,5 +1,6 @@
 class Appointment < ApplicationRecord
   has_and_belongs_to_many :diseases
+  belongs_to :hospital, optional: true
 
   validates :age, presence: true,
     numericality: {

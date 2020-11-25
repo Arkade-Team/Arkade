@@ -126,6 +126,16 @@ generate_appointments age_distribution, sex_distribution, [depressao]
 
 generate_cross_disease_appointments [osteoporose, hiv, depressao]
 
+## Create Hospital
+
+hcor = Hospital.create(name: "Hcor")
+monteSinai = Hospital.create(name: "Monte Sinai")
+
+## Add Hospital to appointment
+
+Appointment.create(age: 34, sex: "male", hospital: hcor)
+Appointment.create(age: 39, sex: "male", hospital: hcor)
+Appointment.create(age: 69, sex: "female", hospital: monteSinai)
 
 ## Wikis
 

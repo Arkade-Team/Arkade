@@ -1,0 +1,26 @@
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col">
+        <h3>Hospitals</h3>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+            </tr>
+          </thead>
+        <tbody>
+        <% @hospitals.each do |hospital| %>
+          <tr scope="row">
+              <td> 
+                <a href="/hospitals/<%= hospital.id %>/appointments"> 
+                  <%= hospital.name %> 
+                </a>
+              </td>
+          </tr>
+        <% end %>
+
+        </tbody>
+        </table>
+    </div>
+    </div>
+  </div>

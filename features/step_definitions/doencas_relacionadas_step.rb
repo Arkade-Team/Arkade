@@ -2,6 +2,8 @@ Dado "apenas uma consulta histórica" do
   Appointment.delete_all
   Disease.delete_all
   @appointment = Appointment.create sex: "female", age: 55
+  @appointment.hospital = Hospital.create(name: "Hcor")
+  @appointment.save
 end
 
 Dado "nesta consulta foi investigado Osteoporose e Depressão" do
