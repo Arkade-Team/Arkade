@@ -55,7 +55,7 @@ RSpec.describe Appointment, type: :model do
 
     describe "general aspects of methods" do
       methods = %i[age_distribution sex_per_last_period
-        appointments_per_disease diseases_per_age sex_per_diseases
+        appointments_per_disease appointments_per_disease_rank appointments_per_disease_raras diseases_per_age sex_per_diseases
         sex_distribution appointments_per_day_period]
 
       methods.each do |method|
@@ -65,7 +65,7 @@ RSpec.describe Appointment, type: :model do
       end
 
       parameterized_methods = %i[sex_per_last_period
-        appointments_per_disease appointments_per_day_period]
+        appointments_per_disease appointments_per_disease_rank appointments_per_disease_raras appointments_per_day_period]
 
       parameterized_methods.each do |method|
         it "requires a date parameter prior to tomorrow" do
@@ -311,5 +311,50 @@ RSpec.describe Appointment, type: :model do
         end
       end
     end
+    describe "appointments_per_disease_rank" do
+      it "returns an empty hash when there is no data" do
+        expect(Appointment.
+               appointments_per_disease_rank(@valid_period_date)).to eql({})
+      end
+
+      it "returns the correct counts when there is data" do
+        hiv = "HIV"
+        depressao = "DEPRESSAO"
+        day = 2.days.ago
+
+        the_counts = { hiv => 1, depressao => 1 }
+
+        Disease.delete_all
+        app = Appointment.create(sex: "male", age: 54, created_at: day)
+        app.diseases << Disease.create(name: hiv)
+        app = Appointment.create(sex: "female", age: 34, created_at: day)
+        app.diseases << Disease.create(name: depressao)
+
+        expect(Appointment.appointments_per_disease_rank(@valid_period_date)).
+          to eql(the_counts)
+      end
+    end
+
+    describe "appointments_per_disease_raras" do
+      it "returns an empty hash when there is no data" do
+        expect(Appointment.
+               appointments_per_disease_raras(@valid_period_date)).to eql({})
+      end
+
+      it "returns the correct counts when there is data" do
+        depressao = "Depressao"
+        day = 2.days.ago
+
+        the_counts = { depressao => 1 }
+
+        Disease.delete_all
+        app = Appointment.create(sex: "male", age: 80, created_at: day)
+        app.diseases << Disease.create(name: depressao)
+
+        expect(Appointment.appointments_per_disease_raras(@valid_period_date)).
+          to eql(the_counts)
+      end
+    end
+
   end
 end
