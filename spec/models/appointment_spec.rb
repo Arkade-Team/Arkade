@@ -8,27 +8,23 @@ RSpec.describe Appointment, type: :model do
 
     it "fails to create without sex" do
       @appointment.age = 42
-
       expect(@appointment).not_to be_valid
     end
 
     it "fails to create without age" do
       @appointment.sex = "female"
-
       expect(@appointment).not_to be_valid
     end
 
     it "fails to create when age is not number" do
       @appointment.age = "quarenta e dois"
       @appointment.sex = "female"
-
       expect(@appointment).not_to be_valid
     end
 
     it "fails to create when sex isn't exactally male or female" do
       @appointment.age = 42
       @appointment.sex = "male anything"
-
       expect(@appointment).not_to be_valid
     end
 
@@ -103,15 +99,13 @@ RSpec.describe Appointment, type: :model do
           { age: 45, sex: "female" },
           { age: 40, sex: "female" },
         ])
-
         expect(Appointment.age_distribution).to eql({ 40 => 2, 45 => 1 })
       end
     end
 
     describe "sex_per_last_period" do
       it "returns an empty hash when no data is present" do
-        expect(Appointment.
-               sex_per_last_period(@valid_period_date)).to eql({})
+        expect(Appointment.sex_per_last_period(@valid_period_date)).to eql({})
       end
 
       it "return correct counts when there is data" do
@@ -127,8 +121,7 @@ RSpec.describe Appointment, type: :model do
           { sex: "female", age: 37, created_at: 2.days.ago },
         ])
 
-        expect(Appointment.
-               sex_per_last_period(@valid_period_date)).to eql(the_counts)
+        expect(Appointment.sex_per_last_period(@valid_period_date)).to eql(the_counts)
       end
     end
 
@@ -197,22 +190,16 @@ RSpec.describe Appointment, type: :model do
         Disease.delete_all
         d_osteo = Disease.create(name: osteo)
         d_depre = Disease.create(name: depre)
-
         app = Appointment.create( age: 64, sex: "female" )
         app.diseases << d_osteo << d_depre
-
         app = Appointment.create( age: 64, sex: "female" )
         app.diseases << d_osteo
-
         app = Appointment.create( age: 42, sex: "male" )
         app.diseases << d_depre
-
         app = Appointment.create( age: 42, sex: "female" )
         app.diseases << d_depre
-
         app = Appointment.create( age: 42, sex: "male" )
         app.diseases << d_depre
-
         app = Appointment.create( age: 42, sex: "female" )
         app.diseases << d_depre
 
@@ -282,10 +269,7 @@ RSpec.describe Appointment, type: :model do
         it "counts correctly the total amounts for period" do
           counts = @appointments_per_day_period[1]
           expected = {
-            madrugada: 3,
-            manha: 6,
-            tarde: 3,
-            noite: 3
+            madrugada: 3, manha: 6, tarde: 3, noite: 3
           }
           expect(counts).to eql(expected)
         end
