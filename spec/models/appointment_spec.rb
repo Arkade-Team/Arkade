@@ -329,11 +329,9 @@ RSpec.describe Appointment, type: :model do
         app.diseases << Disease.create(name: hiv)
         app = Appointment.create(sex: "female", age: 34, created_at: day)
         app.diseases << Disease.create(name: depressao)
-
         expect(Appointment.appointments_per_disease_rank(@valid_period_date)).
           to eql(the_counts)
       end
     end
-
   end
 end
