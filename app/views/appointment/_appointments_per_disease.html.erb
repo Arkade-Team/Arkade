@@ -1,1 +1,69 @@
 <%= line_chart @appointments_per_disease, messages: {empty: "Sem historico consultas"}, id: "consultsDiseasesHistory", download: true, title: "Histórico de Consultas por Doenças"%>
+<h3>Rank <%= @sex_per_last_period_title %> </h3>
+<div class="row">
+    <div class="col-sm">
+        <h4>Doenças Mais Consultadas
+        </h4>
+        <table class="table table-bordered table-hover" id="rank_desc">
+            <tr scope="row">
+                <th scope="col"> Rank</th>
+                <th scope="col"> Doença</th>
+                <th scope="col">Qtd Consultas</th>
+            </tr>
+            <% 
+          i = 0
+          if @appointments_per_disease_rank.size != 0 then
+            @appointments_per_disease_rank.each do |d| 
+            i += 1
+            if i == 1 then 
+            %>
+            <tr scope="row" id="rank_desc" class="alert alert-danger" role="alert">
+                <% else %>
+            <tr scope="row" id="rank_desc">
+                <% end %>
+                <td> # <%= i %> </td>
+                <td> <%= d[0]%></td>
+                <td> <%= d[1]%> </td>
+            </tr>
+            <% end %>
+            <% else %>
+            <tr scope="row">
+                <td colspan="3" id="sem_consultas_rank">Sem consultas</td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+
+    <div class="col-sm">
+        <h4>Doenças Raras
+        </h4>
+        <table class="table table-bordered table-hover" id="rank_raras">
+            <tr scope="row">
+                <th scope="col"> Rank</th>
+                <th scope="col"> Doença</th>
+                <th scope="col">Qtd Consultas</th>
+            </tr>
+            <% 
+    i = 0
+    if @appointments_per_disease_raras.size != 0 then
+      @appointments_per_disease_raras.each do |d|
+            i += 1
+            if i == 1 then 
+            %>
+            <tr scope="row" id="rank_raras" class="alert alert-info" role="alert">
+                <% else %>
+            <tr scope="row" id="rank_raras">
+                <% end %>
+                <td> # <%= i %> </td>
+                <td> <%= d[0]%></td>
+                <td> <%= d[1]%> </td>
+            </tr>
+            <% end %>
+            <% else %>
+            <tr scope="row">
+                <td colspan="3" id="sem_consultas_raras">Sem consultas</td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+</div>

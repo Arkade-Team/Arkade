@@ -17,6 +17,12 @@ class AppointmentController < ApplicationController
     @appointments_per_disease =
       Appointment.appointments_per_disease @beginning_of_period
 
+    @appointments_per_disease_rank =
+      Appointment.appointments_per_disease_rank @beginning_of_period
+    
+    @appointments_per_disease_raras =
+    Appointment.appointments_per_disease_raras @beginning_of_period
+
     @diseases_per_age = Appointment.diseases_per_age
 
     @sex_per_diseases = Appointment.sex_per_diseases

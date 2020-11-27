@@ -43,10 +43,13 @@ class Appointment < ApplicationRecord
         count
     end
 
-    def appointments_per_disease(beginning_of_period)
+    def setArgumentError(beginning_of_period)
       err = ArgumentError.new "parameter must be a date prior to tomorrow"
       raise err if beginning_of_period > (Time.now + 1.day).beginning_of_day
+    end
 
+    def appointments_per_disease(beginning_of_period)
+      setArgumentError(beginning_of_period)
       Appointment.
         where("appointments.created_at >= ? and appointments.created_at <= ?",
               beginning_of_period.to_date,
@@ -55,6 +58,26 @@ class Appointment < ApplicationRecord
         group('diseases.name').
         group('date(appointments.created_at)').
         count
+    end
+
+    def appointments_per_disease_rank(beginning_of_period)
+      setArgumentError(beginning_of_period)
+      Appointment.
+        where("appointments.created_at >= ? and appointments.created_at <= ?",
+              beginning_of_period.to_date,
+              Time.now).
+        left_joins(:diseases).
+        group('diseases.name').order('COUNT(diseases.id) DESC').limit(5).count
+    end
+
+    def appointments_per_disease_raras(beginning_of_period)
+      setArgumentError(beginning_of_period)
+      Appointment.
+        where("appointments.created_at >= ? and appointments.created_at <= ?",
+              beginning_of_period.to_date,
+              Time.now).
+        left_joins(:diseases).
+        group('diseases.name').order('COUNT(diseases.id) ASC').limit(5).count
     end
 
     def diseases_per_age
