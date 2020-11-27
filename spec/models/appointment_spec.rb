@@ -139,8 +139,7 @@ RSpec.describe Appointment, type: :model do
         Disease.delete_all
         app = Appointment.create(sex: "female", age: 64, created_at: day)
         app.diseases << Disease.create(name: osteo)
-        expect(Appointment.appointments_per_disease(@valid_period_date)).
-          to eql(the_counts)
+        expect(Appointment.appointments_per_disease(@valid_period_date)).to eql(the_counts)
       end
     end
 
@@ -220,7 +219,7 @@ RSpec.describe Appointment, type: :model do
       it "returns the correct counts when there is data" do
         the_counts = {
           "male" => 4,
-          "female" => 3
+          "female" => 2
         }
 
         Appointment.create([
@@ -228,7 +227,6 @@ RSpec.describe Appointment, type: :model do
           { sex: "male", age: (20..70).to_a.sample },
           { sex: "male", age: (20..70).to_a.sample },
           { sex: "male", age: (20..70).to_a.sample },
-          { sex: "female", age: (20..70).to_a.sample },
           { sex: "female", age: (20..70).to_a.sample },
           { sex: "female", age: (20..70).to_a.sample },
         ])
