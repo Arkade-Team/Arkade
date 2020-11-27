@@ -335,26 +335,5 @@ RSpec.describe Appointment, type: :model do
       end
     end
 
-    describe "appointments_per_disease_raras" do
-      it "returns an empty hash when there is no data" do
-        expect(Appointment.
-               appointments_per_disease_raras(@valid_period_date)).to eql({})
-      end
-
-      it "returns the correct counts when there is data" do
-        depressao = "Depressao"
-        day = 2.days.ago
-
-        the_counts = { depressao => 1 }
-
-        Disease.delete_all
-        app = Appointment.create(sex: "male", age: 80, created_at: day)
-        app.diseases << Disease.create(name: depressao)
-
-        expect(Appointment.appointments_per_disease_raras(@valid_period_date)).
-          to eql(the_counts)
-      end
-    end
-
   end
 end
